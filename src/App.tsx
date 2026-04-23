@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import logo from "./assets/logo-living-paradise.png";
 
 type PageId = "inicio" | "demostraciones" | "equipo" | "nosotros" | "contacto";
@@ -16,18 +16,10 @@ function PrimaryButton({
     "rounded-2xl bg-slate-900 px-6 py-3 text-center text-sm font-medium text-white shadow-lg shadow-slate-300 transition hover:-translate-y-0.5";
 
   if (href) {
-    return (
-      <a href={href} className={className}>
-        {children}
-      </a>
-    );
+    return <a href={href} className={className}>{children}</a>;
   }
 
-  return (
-    <button type="button" onClick={onClick} className={className}>
-      {children}
-    </button>
-  );
+  return <button type="button" onClick={onClick} className={className}>{children}</button>;
 }
 
 function SecondaryButton({
@@ -43,18 +35,10 @@ function SecondaryButton({
     "rounded-2xl border border-slate-300 bg-white px-6 py-3 text-center text-sm font-medium text-slate-700 transition hover:border-slate-900 hover:text-slate-900";
 
   if (href) {
-    return (
-      <a href={href} className={className}>
-        {children}
-      </a>
-    );
+    return <a href={href} className={className}>{children}</a>;
   }
 
-  return (
-    <button type="button" onClick={onClick} className={className}>
-      {children}
-    </button>
-  );
+  return <button type="button" onClick={onClick} className={className}>{children}</button>;
 }
 
 function PageShell({
@@ -71,12 +55,8 @@ function PageShell({
   return (
     <section className="mx-auto max-w-7xl px-6 py-16 md:py-20">
       <div className="max-w-3xl">
-        <p className="text-sm font-medium uppercase tracking-[0.25em] text-sky-700">
-          {eyebrow}
-        </p>
-        <h1 className="mt-4 text-4xl font-semibold leading-tight md:text-5xl">
-          {title}
-        </h1>
+        <p className="text-sm font-medium uppercase tracking-[0.25em] text-sky-700">{eyebrow}</p>
+        <h1 className="mt-4 text-4xl font-semibold leading-tight md:text-5xl">{title}</h1>
         <p className="mt-6 text-base leading-8 text-slate-600">{description}</p>
       </div>
       <div className="mt-12">{children}</div>
@@ -110,8 +90,24 @@ export default function App() {
     "Hola, quiero agendar una demostración de cocina en casa con Living Paradise."
   );
   const recruitWhatsappMessage = encodeURIComponent(
-    "Hola, quiero conocer las oportunidades de reclutamiento de Living Paradise."
+    "Hola, quiero conocer las oportunidades de Living Paradise."
   );
+
+  const hubspotPortalId = "51384006";
+  const demoFormId = "719db37c-ec4e-4a8d-bb58-4836e2a2d09d";
+  const recruitFormId = "d16650bd-a5e6-402a-a312-2db44f8aaadb";
+  const hubspotRegion = "na1";
+
+  useEffect(() => {
+    const scriptId = "hubspot-forms-script";
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement("script");
+      script.id = scriptId;
+      script.src = `https://js.hsforms.net/forms/embed/${hubspotPortalId}.js`;
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+  }, []);
 
   const pages = useMemo(
     () => [
@@ -221,9 +217,7 @@ export default function App() {
 
   const navButtonClass = (id: PageId) =>
     `rounded-full px-4 py-2 text-sm font-medium transition ${
-      activePage === id
-        ? "bg-slate-900 text-white"
-        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+      activePage === id ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
     }`;
 
   const renderInicio = () => (
@@ -244,12 +238,8 @@ export default function App() {
               Living Paradise conecta tres frentes clave: experiencias de cocina en casa, reclutamiento comercial y presencia institucional. Aquí cada visitante encuentra rápido qué hacemos y cuál es el siguiente paso.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <PrimaryButton onClick={() => setActivePage("demostraciones")}>
-                Solicitar demostración
-              </PrimaryButton>
-              <SecondaryButton onClick={() => setActivePage("equipo")}>
-                Ver oportunidades
-              </SecondaryButton>
+              <PrimaryButton onClick={() => setActivePage("demostraciones")}>Solicitar demostración</PrimaryButton>
+              <SecondaryButton onClick={() => setActivePage("equipo")}>Ver oportunidades</SecondaryButton>
             </div>
 
             <div className="mt-10 grid gap-4 sm:grid-cols-3">
@@ -271,14 +261,14 @@ export default function App() {
           <div className="grid gap-4">
             <div className="rounded-[2.2rem] bg-slate-900 p-8 text-white shadow-2xl shadow-slate-200">
               <p className="text-sm uppercase tracking-[0.28em] text-sky-300">Cómo usar este sitio</p>
-              <h2 className="mt-4 text-3xl font-semibold">Elige la ruta que mejor encaja con lo que estás buscando.</h2>
+              <h2 className="mt-4 text-3xl font-semibold">
+                Elige la ruta que mejor encaja con lo que estás buscando.
+              </h2>
               <p className="mt-4 text-sm leading-7 text-slate-300">
                 Si quieres conocer una experiencia de cocina en casa, ve a Demostraciones. Si buscas crecimiento comercial, entra a Reclutamiento. Si quieres entender la marca, visita Nosotros.
               </p>
               <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
-                <p className="text-sm font-medium uppercase tracking-[0.22em] text-sky-300">
-                  Rutas principales
-                </p>
+                <p className="text-sm font-medium uppercase tracking-[0.22em] text-sky-300">Rutas principales</p>
                 <div className="mt-4 grid gap-3">
                   {homeRoutes.map((item) => (
                     <button
@@ -308,10 +298,7 @@ export default function App() {
         />
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {companyPillars.map((pillar) => (
-            <div
-              key={pillar.title}
-              className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm"
-            >
+            <div key={pillar.title} className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm">
               <p className="text-sm uppercase tracking-[0.24em] text-sky-700">{pillar.title}</p>
               <h3 className="mt-3 text-2xl font-semibold">{pillar.title}</h3>
               <p className="mt-3 text-sm leading-7 text-slate-600">{pillar.text}</p>
@@ -329,10 +316,7 @@ export default function App() {
           />
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {customerSteps.map((step, index) => (
-              <div
-                key={step.title}
-                className="rounded-[2rem] border border-slate-200 bg-slate-50 p-7 shadow-sm"
-              >
+              <div key={step.title} className="rounded-[2rem] border border-slate-200 bg-slate-50 p-7 shadow-sm">
                 <p className="text-sm font-medium uppercase tracking-[0.24em] text-sky-700">Paso {index + 1}</p>
                 <h3 className="mt-3 text-2xl font-semibold">{step.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-slate-600">{step.text}</p>
@@ -354,10 +338,7 @@ export default function App() {
         <div>
           <div className="grid gap-4">
             {demoBenefits.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm"
-              >
+              <div key={item.title} className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
                 <h3 className="text-lg font-semibold">{item.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-slate-600">{item.description}</p>
               </div>
@@ -377,72 +358,17 @@ export default function App() {
         <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-6 shadow-sm md:p-8">
           <h3 className="text-2xl font-semibold text-slate-900">Solicita tu demostración</h3>
           <p className="mt-3 text-sm leading-7 text-slate-600">
-            Déjanos tus datos para coordinar una visita. Si prefieres ir más rápido, también puedes escribir por WhatsApp.
+            Déjanos tus datos para coordinar una visita. También puedes escribirnos por WhatsApp o correo si prefieres ir directo.
           </p>
-          <form className="mt-6 grid gap-5">
-            <div className="grid gap-5 sm:grid-cols-2">
-              <label className="grid gap-2 text-sm font-medium text-slate-700">
-                Nombre completo
-                <input
-                  type="text"
-                  placeholder="Tu nombre"
-                  className="rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-sky-700"
-                />
-              </label>
-              <label className="grid gap-2 text-sm font-medium text-slate-700">
-                Celular
-                <input
-                  type="tel"
-                  placeholder="Tu número"
-                  className="rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-sky-700"
-                />
-              </label>
-              <label className="grid gap-2 text-sm font-medium text-slate-700">
-                Ciudad
-                <input
-                  type="text"
-                  placeholder="Tu ciudad"
-                  className="rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-sky-700"
-                />
-              </label>
-              <label className="grid gap-2 text-sm font-medium text-slate-700">
-                Barrio o zona
-                <input
-                  type="text"
-                  placeholder="Tu ubicación"
-                  className="rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-sky-700"
-                />
-              </label>
-            </div>
 
-            <label className="grid gap-2 text-sm font-medium text-slate-700">
-              ¿Cuántas personas asistirían?
-              <select className="rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-sky-700">
-                <option>Selecciona una opción</option>
-                <option>1 a 2 personas</option>
-                <option>3 a 4 personas</option>
-                <option>5 o más personas</option>
-              </select>
-            </label>
+          <div className="mt-6 overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white p-4">
+            <div className="hs-form-frame" data-region={hubspotRegion} data-form-id={demoFormId} data-portal-id={hubspotPortalId} />
+          </div>
 
-            <label className="grid gap-2 text-sm font-medium text-slate-700">
-              Horario preferido
-              <select className="rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-sky-700">
-                <option>Selecciona un horario</option>
-                <option>Mañana</option>
-                <option>Tarde</option>
-                <option>Noche</option>
-                <option>Flexible</option>
-              </select>
-            </label>
-
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <PrimaryButton>Enviar solicitud</PrimaryButton>
-              <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${demoWhatsappMessage}`}>
-                Escribir por WhatsApp
-              </SecondaryButton>
-            </div>
-          </form>
+          <div className="mt-6 flex flex-col gap-4 sm:flex-row">
+            <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${demoWhatsappMessage}`}>Escribir por WhatsApp</SecondaryButton>
+            <SecondaryButton href="mailto:demolivingp@gmail.com">Escribir por correo</SecondaryButton>
+          </div>
         </div>
       </div>
     </PageShell>
@@ -459,17 +385,11 @@ export default function App() {
           <p className="text-sm uppercase tracking-[0.25em] text-sky-300">Qué ofrecemos</p>
           <h2 className="mt-4 text-3xl font-semibold">Un entorno de formación, acompañamiento y proyección.</h2>
           <ul className="mt-6 grid gap-3 text-sm leading-7 text-slate-300">
-            {recruitmentBenefits.map((item) => (
-              <li key={item}>• {item}</li>
-            ))}
+            {recruitmentBenefits.map((item) => <li key={item}>• {item}</li>)}
           </ul>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <PrimaryButton href="mailto:contrataciones@livingparadise.com.co">
-              Enviar hoja de vida
-            </PrimaryButton>
-            <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${recruitWhatsappMessage}`}>
-              Hablar por WhatsApp
-            </SecondaryButton>
+            <PrimaryButton href="mailto:contrataciones@livingparadise.com.co">Enviar hoja de vida</PrimaryButton>
+            <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${recruitWhatsappMessage}`}>Hablar por WhatsApp</SecondaryButton>
           </div>
         </div>
 
@@ -478,19 +398,22 @@ export default function App() {
             <p className="text-sm uppercase tracking-[0.24em] text-sky-700">Perfil buscado</p>
             <h3 className="mt-3 text-2xl font-semibold">Esto es lo que valoramos en los candidatos.</h3>
             <ul className="mt-4 grid gap-3 text-sm leading-7 text-slate-600">
-              {recruitmentProfile.map((item) => (
-                <li key={item}>• {item}</li>
-              ))}
+              {recruitmentProfile.map((item) => <li key={item}>• {item}</li>)}
             </ul>
           </div>
 
-          <div className="mt-6 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6">
-            <p className="text-sm uppercase tracking-[0.24em] text-sky-700">Proceso de aplicación</p>
-            <ul className="mt-4 grid gap-3 text-sm leading-7 text-slate-600">
-              <li>• Envías tu hoja de vida o tu interés por correo o WhatsApp.</li>
-              <li>• El equipo revisa tu perfil y coordina contacto inicial.</li>
-              <li>• Si avanzas, recibes información del proceso y siguientes pasos.</li>
-            </ul>
+          <div className="mt-6 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 shadow-sm">
+            <h3 className="text-xl font-semibold text-slate-900">Postúlate aquí</h3>
+            <p className="mt-2 text-sm leading-7 text-slate-600">
+              Completa el formulario y nuestro equipo revisará tu información para el proceso de reclutamiento.
+            </p>
+            <div className="mt-5 overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white p-4">
+              <div className="hs-form-frame" data-region={hubspotRegion} data-form-id={recruitFormId} data-portal-id={hubspotPortalId} />
+            </div>
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+              <SecondaryButton href="mailto:contrataciones@livingparadise.com.co">Aplicar por correo</SecondaryButton>
+              <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${recruitWhatsappMessage}`}>Aplicar por WhatsApp</SecondaryButton>
+            </div>
           </div>
         </div>
       </div>
@@ -505,10 +428,7 @@ export default function App() {
     >
       <div className="grid gap-6 md:grid-cols-3">
         {companyPillars.map((pillar) => (
-          <div
-            key={pillar.title}
-            className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm"
-          >
+          <div key={pillar.title} className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm">
             <h3 className="text-xl font-semibold">{pillar.title}</h3>
             <p className="mt-3 text-sm leading-7 text-slate-600">{pillar.text}</p>
           </div>
@@ -574,12 +494,7 @@ export default function App() {
           </button>
           <nav className="flex flex-wrap gap-2">
             {pages.map((page) => (
-              <button
-                key={page.id}
-                type="button"
-                onClick={() => setActivePage(page.id)}
-                className={navButtonClass(page.id)}
-              >
+              <button key={page.id} type="button" onClick={() => setActivePage(page.id)} className={navButtonClass(page.id)}>
                 {page.label}
               </button>
             ))}
@@ -592,9 +507,7 @@ export default function App() {
       <section className="bg-slate-950 py-20 text-white">
         <div className="mx-auto max-w-7xl px-6 text-center">
           <p className="text-sm font-medium uppercase tracking-[0.25em] text-sky-300">livingparadise.com.co</p>
-          <h2 className="mt-4 text-3xl font-semibold md:text-5xl">
-            Una base más clara para vender, reclutar y construir marca.
-          </h2>
+          <h2 className="mt-4 text-3xl font-semibold md:text-5xl">Una base más clara para vender, reclutar y construir marca.</h2>
           <p className="mx-auto mt-6 max-w-2xl text-sm leading-8 text-slate-300 md:text-base">
             Ya no estamos solo maquillando la web. Estamos organizando el mensaje y la estructura para que funcione de verdad como activo comercial e institucional.
           </p>
