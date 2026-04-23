@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import logo from "./assets/logo-living-paradise.png";
 
-type PageId = "inicio" | "demostraciones" | "equipo" | "nosotros" | "contacto";
+type PageId = "inicio" | "demostraciones" | "equipo" | "nosotros" | "contacto" | "privacidad";
 
 function PrimaryButton({
   children,
@@ -82,6 +82,14 @@ function SectionTitle({
   );
 }
 
+function PrivacyNotice({ purpose }: { purpose: string }) {
+  return (
+    <p className="mt-4 text-xs leading-6 text-slate-500">
+      Al enviar este formulario, autorizas el tratamiento de tus datos para fines de {purpose}. Puedes consultar la política de privacidad en el pie de página.
+    </p>
+  );
+}
+
 export default function App() {
   const [activePage, setActivePage] = useState<PageId>("inicio");
 
@@ -121,12 +129,12 @@ export default function App() {
   );
 
   const corporateEmails = [
+    { title: "Gerencia", email: "gerencia@livingparadise.com.co" },
     { title: "Información general", email: "info@livingparadise.com.co" },
     { title: "Demostraciones", email: "demostraciones@livingparadise.com.co" },
     { title: "Contrataciones", email: "contrataciones@livingparadise.com.co" },
-    { title: "Gerencia", email: "gerencia@livingparadise.com.co" },
-    { title: "Facturación", email: "facturacion@livingparadise.com.co" },
     { title: "Contacto directo", email: "fernando.rodriguez@livingparadise.com.co" },
+    { title: "Facturación", email: "facturacion@livingparadise.com.co" },
   ];
 
   const homeRoutes = [
@@ -261,9 +269,7 @@ export default function App() {
           <div className="grid gap-4">
             <div className="rounded-[2.2rem] bg-slate-900 p-8 text-white shadow-2xl shadow-slate-200">
               <p className="text-sm uppercase tracking-[0.28em] text-sky-300">Cómo usar este sitio</p>
-              <h2 className="mt-4 text-3xl font-semibold">
-                Elige la ruta que mejor encaja con lo que estás buscando.
-              </h2>
+              <h2 className="mt-4 text-3xl font-semibold">Elige la ruta que mejor encaja con lo que estás buscando.</h2>
               <p className="mt-4 text-sm leading-7 text-slate-300">
                 Si quieres conocer una experiencia de cocina en casa, ve a Demostraciones. Si buscas crecimiento comercial, entra a Reclutamiento. Si quieres entender la marca, visita Nosotros.
               </p>
@@ -369,6 +375,7 @@ export default function App() {
             <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${demoWhatsappMessage}`}>Escribir por WhatsApp</SecondaryButton>
             <SecondaryButton href="mailto:demolivingp@gmail.com">Escribir por correo</SecondaryButton>
           </div>
+          <PrivacyNotice purpose="contacto, seguimiento comercial y gestión de la solicitud de demostración" />
         </div>
       </div>
     </PageShell>
@@ -414,6 +421,7 @@ export default function App() {
               <SecondaryButton href="mailto:contrataciones@livingparadise.com.co">Aplicar por correo</SecondaryButton>
               <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${recruitWhatsappMessage}`}>Aplicar por WhatsApp</SecondaryButton>
             </div>
+            <PrivacyNotice purpose="contacto, evaluación del perfil y gestión del proceso de reclutamiento" />
           </div>
         </div>
       </div>
@@ -464,6 +472,28 @@ export default function App() {
     </PageShell>
   );
 
+  const renderPrivacidad = () => (
+    <PageShell
+      eyebrow="Privacidad"
+      title="Política de privacidad y tratamiento de datos"
+      description="Este sitio recopila datos a través de formularios de demostraciones y reclutamiento. Aquí resumimos de forma clara cómo se usan esos datos."
+    >
+      <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
+        <div className="grid gap-6 text-sm leading-7 text-slate-600">
+          <p>
+            Los datos personales suministrados a través de este sitio serán utilizados por Living Paradise para gestionar solicitudes de demostraciones, procesos de reclutamiento, contacto comercial y seguimiento relacionado con los servicios y oportunidades ofrecidas por la marca.
+          </p>
+          <p>
+            Al diligenciar los formularios, el titular autoriza el tratamiento de su información para fines de contacto, atención, seguimiento comercial y gestión de procesos de selección, de acuerdo con la normatividad aplicable en Colombia.
+          </p>
+          <p>
+            El titular podrá solicitar actualización, corrección o eliminación de sus datos escribiendo a info@livingparadise.com.co o al canal de contacto correspondiente publicado en este sitio.
+          </p>
+        </div>
+      </div>
+    </PageShell>
+  );
+
   const renderPage = () => {
     switch (activePage) {
       case "demostraciones":
@@ -474,6 +504,8 @@ export default function App() {
         return renderNosotros();
       case "contacto":
         return renderContacto();
+      case "privacidad":
+        return renderPrivacidad();
       default:
         return renderInicio();
     }
@@ -519,9 +551,43 @@ export default function App() {
       </section>
 
       <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-8 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
-          <p>© 2026 Living Paradise. Todos los derechos reservados.</p>
-          <p>livingparadise.com.co</p>
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-10 md:grid-cols-[1.1fr_0.9fr_0.9fr]">
+          <div>
+            <p className="text-lg font-semibold text-slate-900">Living Paradise</p>
+            <p className="mt-2 text-xs uppercase tracking-[0.24em] text-slate-500">Healthy modern home</p>
+            <p className="mt-4 max-w-md text-sm leading-7 text-slate-600">
+              Living Paradise integra demostraciones de cocina en casa, reclutamiento comercial y presencia institucional en una misma plataforma de marca.
+            </p>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-900">Accesos</p>
+            <div className="mt-4 grid gap-3 text-sm text-slate-600">
+              <button type="button" onClick={() => setActivePage("demostraciones")} className="text-left hover:text-slate-900">Demostraciones</button>
+              <button type="button" onClick={() => setActivePage("equipo")} className="text-left hover:text-slate-900">Únete al equipo</button>
+              <button type="button" onClick={() => setActivePage("nosotros")} className="text-left hover:text-slate-900">Nosotros</button>
+              <button type="button" onClick={() => setActivePage("contacto")} className="text-left hover:text-slate-900">Contacto</button>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-900">Contacto</p>
+            <div className="mt-4 grid gap-3 text-sm text-slate-600">
+              <a href="mailto:info@livingparadise.com.co" className="hover:text-slate-900">info@livingparadise.com.co</a>
+              <a href="mailto:demolivingp@gmail.com" className="hover:text-slate-900">demolivingp@gmail.com</a>
+              <a href="mailto:contrataciones@livingparadise.com.co" className="hover:text-slate-900">contrataciones@livingparadise.com.co</a>
+              <a href={`https://wa.me/${whatsappNumber}?text=${demoWhatsappMessage}`} className="hover:text-slate-900">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-slate-200">
+          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-6 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
+            <p>© 2026 Living Paradise. Todos los derechos reservados.</p>
+            <button type="button" onClick={() => setActivePage("privacidad")} className="text-left hover:text-slate-900">
+              Política de privacidad y tratamiento de datos
+            </button>
+          </div>
         </div>
       </footer>
     </div>
