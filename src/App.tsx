@@ -242,8 +242,8 @@ export default function App() {
   const recruitWhatsappMessage = encodeURIComponent(
     "Hola, quiero conocer las oportunidades de Living Paradise."
   );
-  const demoHubspotUrl = "https://ulc5i.share.hsforms.com/20WZQvaXmQCqjEi20T4qq2w";
-  const recruitHubspotUrl = "https://ulc5i.share.hsforms.com/2cZ2zfOxOSo27WEg24qLQnQ";
+  const demoHubspotUrl = "https://ulc5i.share.hsforms.com/2cZ2zfOxOSo27WEg24qLQnQ";
+  const recruitHubspotUrl = "https://ulc5i.share.hsforms.com/20WZQvaXmQCqjEi20T4qq2w";
 
   
 
