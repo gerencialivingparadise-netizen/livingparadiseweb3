@@ -3,6 +3,7 @@ import logo from "./assets/logo-living-paradise.png";
 import heroDemo from "./assets/hero-demo.jpg";
 import teamGrowth from "./assets/team-growth.jpg";
 import recruitmentPoster from "./assets/recruitment-office-poster.png";
+import boardroomHero from "./assets/boardroom-hero.png";
 
 type PageId = "inicio" | "demostraciones" | "equipo" | "nosotros" | "contacto" | "privacidad";
 
@@ -255,24 +256,24 @@ export default function App() {
   );
 
   const corporateEmails = [
-    { title: "Teléfono", email: "322 713 3590" },
-    { title: "Contrataciones", email: "contrataciones@livingparadise.com.co" },
-    { title: "Información general", email: "info@livingparadise.com.co" },
-    { title: "Demostraciones", email: "demostraciones@livingparadise.com.co" },
+    { title: "Teléfono", value: "322 713 3590", href: "tel:3227133590" },
+    { title: "Contrataciones", value: "contrataciones@livingparadise.com.co", href: "mailto:contrataciones@livingparadise.com.co" },
+    { title: "Información general", value: "info@livingparadise.com.co", href: "mailto:info@livingparadise.com.co" },
+    { title: "Demostraciones", value: "demostraciones@livingparadise.com.co", href: "mailto:demostraciones@livingparadise.com.co" },
   ];
 
   const companyPillars = [
     {
-      title: "Experiencia",
-      text: "Cada visita está pensada para que la familia viva una experiencia clara, cómoda y bien presentada dentro de su propio hogar.",
+      title: "Formación",
+      text: "Creemos en desarrollar personas con estructura, acompañamiento y dirección comercial.",
     },
     {
-      title: "Bienestar",
-      text: "La propuesta conecta cocina práctica, alimentación más consciente y una visión moderna del hogar.",
+      title: "Experiencia",
+      text: "Cada interacción con la marca debe sentirse clara, profesional y bien presentada.",
     },
     {
       title: "Confianza",
-      text: "Buscamos proyectar orden, profesionalismo y una atención que se sienta seria desde el primer contacto.",
+      text: "Trabajamos para proyectar orden, respaldo y credibilidad desde el primer contacto.",
     },
   ];
 
@@ -302,24 +303,23 @@ export default function App() {
       activePage === id ? "text-[#163f8d]" : "text-slate-500 hover:text-[#163f8d]"
     }`;
 
+
   const renderInicio = () => (
     <>
       <section className="border-b border-[#dde3ee] bg-[#f4f7fb]">
         <div className="mx-auto max-w-[1450px] px-6 py-10 lg:px-10">
-          <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <div className="pt-2">
               <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#1263b8]">
-                Living Paradise · crecimiento comercial · expansión
+                LIVING PARADISE · CRECIMIENTO COMERCIAL · EXPANSIÓN
               </p>
 
-              <h1 className="heading-serif mt-5 max-w-[720px] text-[2.8rem] leading-[1.02] text-[#18305c] md:text-[4rem]">
+              <h1 className="heading-serif mt-5 max-w-[720px] text-[2.55rem] leading-[1.04] text-[#18305c] md:text-[3.6rem]">
                 Únete a un equipo comercial con formación, proyección y una marca que inspira confianza.
               </h1>
 
               <p className="mt-5 max-w-[680px] text-[1rem] leading-8 text-slate-600">
-                En Living Paradise estamos en proceso de expansión y buscamos personas con actitud, disciplina
-                y deseo real de crecer. Aquí encontrarás formación estructurada, acompañamiento en campo y una
-                oportunidad seria para desarrollarte dentro del área comercial.
+                En Living Paradise estamos en proceso de expansión y buscamos personas con actitud, disciplina y deseo real de crecer. Aquí encontrarás formación estructurada, acompañamiento en campo y una oportunidad seria para desarrollarte dentro del área comercial.
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -330,9 +330,9 @@ export default function App() {
 
             <div className="overflow-hidden rounded-[1.8rem] border border-[#d7deea] bg-white shadow-[0_16px_36px_rgba(17,39,81,0.08)]">
               <img
-                src={recruitmentPoster}
-                alt="Reclutamiento Living Paradise"
-                className="w-full object-cover"
+                src={boardroomHero}
+                alt="Equipo reunido en sala de juntas Living Paradise"
+                className="h-[320px] w-full object-cover object-center md:h-[420px] lg:h-[500px]"
               />
             </div>
           </div>
@@ -367,13 +367,11 @@ export default function App() {
               <div className="inline-flex rounded-full bg-[#f4e7d0] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#8b6528]">
                 Demostraciones en casa
               </div>
-              <h2 className="heading-serif mt-5 max-w-[560px] text-[2.2rem] leading-tight text-[#1d2e55] md:text-[3rem]">
-                También llevamos experiencias de cocina en casa a nuevas familias.
+              <h2 className="heading-serif mt-5 max-w-[560px] text-[2.1rem] leading-tight text-[#1d2e55] md:text-[2.8rem]">
+                También llevamos experiencias de cocina en casa a nuevas familias
               </h2>
               <p className="mt-4 max-w-[560px] text-[1rem] leading-8 text-slate-600">
-                Living Paradise desarrolla talleres y demostraciones de cocina en casa con una experiencia
-                clara, elegante y bien guiada, pensada para conectar bienestar, atención profesional y
-                cercanía con las familias.
+                Living Paradise desarrolla talleres y demostraciones de cocina en casa con una experiencia clara, elegante y bien guiada, pensada para conectar bienestar, atención profesional y cercanía con las familias.
               </p>
 
               <div className="mt-6 flex flex-col gap-4 sm:flex-row">
@@ -410,7 +408,7 @@ export default function App() {
             <StepCard
               number="2"
               title="Proceso guiado"
-              text="Te mostramos la oportunidad, el enfoque de trabajo y el tipo de acompañamiento que ofrecemos."
+              text="Te mostramos la oportunidad, el enfoque de trabajo y el acompañamiento que ofrecemos."
             />
             <StepCard
               number="3"
@@ -428,10 +426,7 @@ export default function App() {
             Una marca enfocada en experiencia, crecimiento y presentación profesional.
           </h2>
           <p className="mt-5 max-w-4xl text-[1rem] leading-8 text-slate-600">
-            Living Paradise, distribuidor autorizado de Royal Prestige en Colombia, desarrolla experiencias en
-            el hogar y construye una operación comercial orientada a la formación, la ejecución y el
-            crecimiento. La marca busca proyectar confianza, orden y una experiencia seria tanto para clientes
-            como para nuevos integrantes del equipo.
+            Living Paradise, distribuidor autorizado de Royal Prestige en Colombia, desarrolla experiencias en el hogar y construye una operación comercial orientada a la formación, la ejecución y el crecimiento. La marca busca proyectar confianza, orden y una experiencia seria tanto para clientes como para nuevos integrantes del equipo.
           </p>
         </div>
 
@@ -452,9 +447,9 @@ export default function App() {
 
   const renderDemostraciones = () => (
     <PageShell
-      eyebrow="Demostraciones"
-      title="Agenda un taller de cocina en casa y vive una experiencia práctica, saludable y bien guiada."
-      description="La experiencia está pensada para que conozcas una propuesta de cocina moderna en tu propio hogar, con una demostración clara, acompañamiento profesional y un momento agradable para compartir en familia."
+      eyebrow="LIVING PARADISE · EXPERIENCIA EN CASA · COCINA SALUDABLE"
+      title="Agenda un taller de cocina en casa y vive una experiencia práctica, elegante y bien guiada."
+      description="En Living Paradise llevamos a tu hogar una experiencia de cocina saludable pensada para compartir en familia. Conocerás una propuesta moderna y funcional mientras preparamos una receta práctica, en un ambiente cercano, organizado y profesional."
     >
       <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="space-y-6">
@@ -467,25 +462,24 @@ export default function App() {
           </div>
 
           <div className="rounded-[1.35rem] border border-[#e3d4ba] bg-[#fffaf2] p-6 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[#123d8c]">Qué incluye</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[#123d8c]">¿Qué incluye la demostración?</p>
             <ul className="mt-4 grid gap-3 text-sm leading-7 text-slate-700">
-              {demoBenefits.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-0.5 text-[#c9a15a]"><CheckIcon /></span>
-                  <span>{item}</span>
-                </li>
-              ))}
+              <li className="flex items-start gap-3"><span className="mt-0.5 text-[#c9a15a]"><CheckIcon /></span><span>Coordinación previa de fecha, hora y detalles de la visita.</span></li>
+              <li className="flex items-start gap-3"><span className="mt-0.5 text-[#c9a15a]"><CheckIcon /></span><span>Taller de cocina en casa guiado por nuestro equipo.</span></li>
+              <li className="flex items-start gap-3"><span className="mt-0.5 text-[#c9a15a]"><CheckIcon /></span><span>Preparación de una receta práctica para compartir en familia.</span></li>
+              <li className="flex items-start gap-3"><span className="mt-0.5 text-[#c9a15a]"><CheckIcon /></span><span>Tips de cocina saludable durante la experiencia.</span></li>
+              <li className="flex items-start gap-3"><span className="mt-0.5 text-[#c9a15a]"><CheckIcon /></span><span>Espacio para resolver dudas de forma clara y cercana.</span></li>
             </ul>
           </div>
         </div>
 
         <div className="rounded-[1.6rem] border border-[#d7deea] bg-[#f7f9fc] p-6 shadow-sm md:p-8">
           <div className="inline-flex rounded-full bg-[#f4e7d0] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#8b6528]">
-            Solicita tu demostración
+            Agenda tu demostración
           </div>
-          <h3 className="mt-4 text-2xl font-semibold text-[#24395d]">Completa el formulario y coordinamos tu visita</h3>
+          <h3 className="mt-4 text-2xl font-semibold text-[#24395d]">Queremos que vivas la experiencia en casa</h3>
           <p className="mt-3 text-sm leading-7 text-slate-600">
-            También puedes escribirnos por WhatsApp o correo si prefieres avanzar por otro canal.
+            Completa el formulario y coordinamos tu visita. También puedes escribirnos por WhatsApp o correo si prefieres avanzar por otro canal.
           </p>
 
           <div className="mt-6 overflow-hidden rounded-[1.2rem] border border-[#d7deea] bg-white">
@@ -499,7 +493,7 @@ export default function App() {
           </div>
 
           <div className="mt-6 flex flex-col gap-4 sm:flex-row">
-            <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${demoWhatsappMessage}`}>Escribir por WhatsApp</SecondaryButton>
+            <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${demoWhatsappMessage}`}>Agendar por WhatsApp</SecondaryButton>
             <SecondaryButton href="mailto:demostraciones@livingparadise.com.co">Solicitar por correo</SecondaryButton>
           </div>
           <PrivacyNotice purpose="contacto, seguimiento comercial y gestión de la solicitud de demostración" />
@@ -512,9 +506,9 @@ export default function App() {
 
   const renderEquipo = () => (
     <PageShell
-      eyebrow="Únete al equipo"
-      title="Crece con nosotros y transforma tu futuro dentro de un entorno comercial serio, formativo y con proyección."
-      description="Buscamos personas con propósito, enfoque y deseo de crecer. Si te interesa desarrollarte en el área comercial, aquí encontrarás acompañamiento, formación y una ruta clara de crecimiento."
+      eyebrow="LIVING PARADISE · CRECIMIENTO COMERCIAL · EXPANSIÓN"
+      title="Construye una carrera comercial con formación, acompañamiento y proyección real."
+      description="En Living Paradise estamos en proceso de expansión y buscamos personas con actitud, disciplina y deseo real de crecer. Esta oportunidad está pensada para quienes quieren desarrollarse en el área comercial dentro de un entorno serio, bien guiado y orientado a resultados."
     >
       <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="space-y-6">
@@ -528,14 +522,12 @@ export default function App() {
 
           <div className="rounded-[1.6rem] bg-[#0a2257] p-8 text-white shadow-[0_12px_30px_rgba(17,39,81,0.12)]">
             <p className="text-xs uppercase tracking-[0.28em] text-[#f0d2a1]">¿Qué ofrecemos?</p>
-            <h2 className="heading-serif mt-4 text-[2rem] leading-tight">Formación, acompañamiento y proyección real.</h2>
+            <h2 className="heading-serif mt-4 text-[2rem] leading-tight">Una oportunidad para crecer dentro de una estructura clara y profesional.</h2>
             <ul className="mt-6 grid gap-3 text-sm leading-7 text-blue-50">
-              {recruitmentBenefits.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-0.5 text-[#f0d2a1]"><CheckIcon /></span>
-                  <span>{item}</span>
-                </li>
-              ))}
+              <li className="flex items-start gap-3"><span className="mt-0.5 text-[#f0d2a1]"><CheckIcon /></span><span>Formación estructurada en ventas y negociación.</span></li>
+              <li className="flex items-start gap-3"><span className="mt-0.5 text-[#f0d2a1]"><CheckIcon /></span><span>Acompañamiento en campo y desarrollo comercial.</span></li>
+              <li className="flex items-start gap-3"><span className="mt-0.5 text-[#f0d2a1]"><CheckIcon /></span><span>Proyección interna basada en desempeño.</span></li>
+              <li className="flex items-start gap-3"><span className="mt-0.5 text-[#f0d2a1]"><CheckIcon /></span><span>Entorno profesional orientado a resultados.</span></li>
             </ul>
           </div>
         </div>
@@ -545,12 +537,10 @@ export default function App() {
             <p className="text-xs uppercase tracking-[0.24em] text-[#8b6528]">Perfil que buscamos</p>
             <h3 className="mt-3 text-2xl font-semibold text-[#24395d]">Lo que más valoramos en los candidatos</h3>
             <ul className="mt-4 grid gap-3 text-sm leading-7 text-slate-700">
-              {recruitmentProfile.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-0.5 text-[#c9a15a]"><CheckIcon /></span>
-                  <span>{item}</span>
-                </li>
-              ))}
+              <li className="flex items-start gap-3"><span className="mt-0.5 text-[#c9a15a]"><CheckIcon /></span><span>Habilidades de comunicación y relacionamiento.</span></li>
+              <li className="flex items-start gap-3"><span className="mt-0.5 text-[#c9a15a]"><CheckIcon /></span><span>Buena presentación personal.</span></li>
+              <li className="flex items-start gap-3"><span className="mt-0.5 text-[#c9a15a]"><CheckIcon /></span><span>Disciplina, compromiso y actitud comercial.</span></li>
+              <li className="flex items-start gap-3"><span className="mt-0.5 text-[#c9a15a]"><CheckIcon /></span><span>Interés en el desarrollo profesional.</span></li>
             </ul>
           </div>
 
@@ -582,11 +572,12 @@ export default function App() {
   );
 
 
+
   const renderNosotros = () => (
     <PageShell
-      eyebrow="Nosotros"
-      title="Living Paradise es una marca enfocada en experiencias de cocina en casa con una propuesta seria, elegante y cercana."
-      description="Nuestro objetivo es conectar bienestar, atención profesional y crecimiento comercial en una plataforma coherente y bien presentada."
+      eyebrow="LIVING PARADISE · MARCA · EXPERIENCIA · PROYECCIÓN"
+      title="Una marca enfocada en experiencias en el hogar, crecimiento comercial y una presentación profesional."
+      description="Living Paradise, distribuidor autorizado de Royal Prestige en Colombia, nace con el propósito de crear experiencias bien presentadas en el hogar y desarrollar una operación comercial seria, estructurada y orientada al crecimiento. La marca busca conectar bienestar, confianza y una forma más cercana de relacionarse con las personas."
     >
       <div className="grid gap-6 md:grid-cols-3">
         {companyPillars.map((pillar) => (
@@ -599,42 +590,43 @@ export default function App() {
       </div>
 
       <div className="mt-10 rounded-[1.6rem] border border-[#d7deea] bg-[#f7f9fc] p-8">
-        <h3 className="text-2xl font-semibold text-[#24395d]">Qué queremos proyectar</h3>
+        <h3 className="text-2xl font-semibold text-[#24395d]">Más que una marca, una propuesta de experiencia, orden y crecimiento.</h3>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-slate-600">
-          Una marca organizada, premium y cercana, capaz de generar confianza en clientes, atraer talento
-          comercial y construir posicionamiento institucional.
+          Living Paradise integra experiencias de cocina en casa pensadas para conectar con las familias de forma cercana, elegante y profesional, y una visión de crecimiento comercial enfocada en formar personas, construir equipo y proyectar una marca sólida en el mercado.
         </p>
       </div>
     </PageShell>
   );
 
+
+
   const renderContacto = () => (
     <PageShell
-      eyebrow="Contacto"
-      title="Canales corporativos claros para responder mejor y operar con más orden."
+      eyebrow="LIVING PARADISE · CONTACTO"
+      title="Canales de contacto"
       description="Elige el canal según el tipo de solicitud y nuestro equipo te responderá de la forma más adecuada."
     >
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {corporateEmails.map((item) => {
-          const href =
-            item.title === "Teléfono"
-              ? `tel:${item.email.replace(/\s+/g, "")}`
-              : `mailto:${item.email}`;
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {corporateEmails.map((item) => (
+          <a
+            key={item.title}
+            href={item.href}
+            className="rounded-[1.35rem] border border-[#d7deea] bg-white p-6 text-sm text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-[#123d8c]"
+          >
+            <p className="text-xs uppercase tracking-[0.24em] text-[#1263b8]">{item.title}</p>
+            <p className="mt-3 font-medium text-[#24395d]">{item.value}</p>
+          </a>
+        ))}
+      </div>
 
-          return (
-            <a
-              key={item.title}
-              href={href}
-              className="rounded-[1.35rem] border border-[#d7deea] bg-white p-6 text-sm text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-[#123d8c]"
-            >
-              <p className="text-xs uppercase tracking-[0.24em] text-[#1263b8]">{item.title}</p>
-              <p className="mt-3 font-medium text-[#24395d]">{item.email}</p>
-            </a>
-          );
-        })}
+      <div className="mt-8 rounded-[1.35rem] border border-[#e3d4ba] bg-[#fffaf2] p-6 shadow-sm">
+        <p className="text-sm leading-7 text-slate-700">
+          Si deseas conocer una oportunidad comercial, agendar una demostración o resolver una inquietud general, puedes escribirnos por el canal que mejor se ajuste a tu necesidad.
+        </p>
       </div>
     </PageShell>
   );
+
 
   const renderPrivacidad = () => (
     <PageShell

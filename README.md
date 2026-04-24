@@ -1,14 +1,21 @@
-# Living Paradise Web - Stable No HubSpot
+# Living Paradise Web - Final Copy Implemented
 
-Versión estable sin formularios embebidos de HubSpot.
+Esta versión aplica el copy definitivo aprobado en:
+- Home
+- Únete al equipo
+- Demostraciones
+- Nosotros
+- Contacto
 
-Cambios:
-- Se eliminó temporalmente el embed de HubSpot para evitar pantalla en blanco.
-- Demostraciones y reclutamiento ahora reciben solicitudes por WhatsApp y correo.
-- Se conserva el diseño general del sitio.
-- Esta versión es la correcta para volver a publicar sin romper la web.
+También incorpora:
+- home con foco principal en reclutamiento
+- imagen corporativa de junta para el hero del home
+- demostraciones como bloque secundario
+- HubSpot embebido por iframe en reclutamiento y demostraciones
+- contacto simplificado
 
-Siguiente paso:
-1. Subir esta versión al repo.
-2. Confirmar que la web vuelve a cargar.
-3. Seguir afinando diseño y copy.
+Siguiente paso recomendado:
+1. subir esta versión
+2. revisar escritorio
+3. revisar móvil
+4. hacer la última ronda fina de diseño
