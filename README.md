@@ -1,22 +1,12 @@
-# Living Paradise Web Final
+# Living Paradise Web Impact
 
-Versión consolidada con:
+Versión actualizada con una home más impactante basada en el mockup aprobado:
+- logo con más presencia
+- hero con imagen de demostración
+- cards de rutas principales
+- sección "¿Cómo funciona?"
+- CTA de reclutamiento
+- footer más sólido
+- páginas funcionales de demostraciones y reclutamiento con HubSpot
 
-- HubSpot integrado en demostraciones y reclutamiento
-- footer profesional
-- política de privacidad
-- favicon y preview social
-- mejoras de copy y estructura
-
-## Despliegue
-1. Sube estos archivos a tu repositorio de GitHub.
-2. Haz commit.
-3. Vercel redepliega automáticamente.
-
-## Verifica luego del deploy
-- Formulario de demostraciones
-- Formulario de reclutamiento
-- Footer
-- Política de privacidad
-- Favicon
-- Vista previa al compartir
+Sube todo al repo y Vercel redepliega automáticamente.

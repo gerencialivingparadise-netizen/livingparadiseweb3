@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import logo from "./assets/logo-living-paradise.png";
+import heroDemo from "./assets/hero-demo.jpg";
+import teamGrowth from "./assets/team-growth.jpg";
 
 type PageId = "inicio" | "demostraciones" | "equipo" | "nosotros" | "contacto" | "privacidad";
 
@@ -13,13 +15,23 @@ function PrimaryButton({
   href?: string;
 }) {
   const className =
-    "rounded-2xl bg-slate-900 px-6 py-3 text-center text-sm font-medium text-white shadow-lg shadow-slate-300 transition hover:-translate-y-0.5";
+    "inline-flex items-center justify-center gap-3 rounded-2xl bg-[#123b8b] px-6 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-blue-100 transition hover:-translate-y-0.5 hover:bg-[#0f3276]";
 
   if (href) {
-    return <a href={href} className={className}>{children}</a>;
+    return (
+      <a href={href} className={className}>
+        {children}
+        <span aria-hidden="true">→</span>
+      </a>
+    );
   }
 
-  return <button type="button" onClick={onClick} className={className}>{children}</button>;
+  return (
+    <button type="button" onClick={onClick} className={className}>
+      {children}
+      <span aria-hidden="true">→</span>
+    </button>
+  );
 }
 
 function SecondaryButton({
@@ -32,13 +44,23 @@ function SecondaryButton({
   href?: string;
 }) {
   const className =
-    "rounded-2xl border border-slate-300 bg-white px-6 py-3 text-center text-sm font-medium text-slate-700 transition hover:border-slate-900 hover:text-slate-900";
+    "inline-flex items-center justify-center gap-3 rounded-2xl border border-[#123b8b] bg-white px-6 py-3 text-center text-sm font-semibold text-[#123b8b] transition hover:-translate-y-0.5 hover:bg-blue-50";
 
   if (href) {
-    return <a href={href} className={className}>{children}</a>;
+    return (
+      <a href={href} className={className}>
+        {children}
+        <span aria-hidden="true">→</span>
+      </a>
+    );
   }
 
-  return <button type="button" onClick={onClick} className={className}>{children}</button>;
+  return (
+    <button type="button" onClick={onClick} className={className}>
+      {children}
+      <span aria-hidden="true">→</span>
+    </button>
+  );
 }
 
 function PageShell({
@@ -55,9 +77,11 @@ function PageShell({
   return (
     <section className="mx-auto max-w-7xl px-6 py-16 md:py-20">
       <div className="max-w-3xl">
-        <p className="text-sm font-medium uppercase tracking-[0.25em] text-sky-700">{eyebrow}</p>
-        <h1 className="mt-4 text-4xl font-semibold leading-tight md:text-5xl">{title}</h1>
-        <p className="mt-6 text-base leading-8 text-slate-600">{description}</p>
+        <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#1263b8]">{eyebrow}</p>
+        <h1 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-slate-900 md:text-5xl">
+          {title}
+        </h1>
+        <p className="mt-6 max-w-3xl text-base leading-8 text-slate-600">{description}</p>
       </div>
       <div className="mt-12">{children}</div>
     </section>
@@ -75,8 +99,8 @@ function SectionTitle({
 }) {
   return (
     <div className="max-w-3xl">
-      <p className="text-sm font-medium uppercase tracking-[0.25em] text-sky-700">{eyebrow}</p>
-      <h2 className="mt-4 text-3xl font-semibold md:text-4xl">{title}</h2>
+      <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#1263b8]">{eyebrow}</p>
+      <h2 className="mt-4 text-3xl font-semibold leading-tight text-slate-900 md:text-4xl">{title}</h2>
       {description ? <p className="mt-5 text-base leading-8 text-slate-600">{description}</p> : null}
     </div>
   );
@@ -85,8 +109,60 @@ function SectionTitle({
 function PrivacyNotice({ purpose }: { purpose: string }) {
   return (
     <p className="mt-4 text-xs leading-6 text-slate-500">
-      Al enviar este formulario, autorizas el tratamiento de tus datos para fines de {purpose}. Puedes consultar la política de privacidad en el pie de página.
+      Al enviar este formulario, autorizas el tratamiento de tus datos para fines de {purpose}. Puedes
+      consultar la política de privacidad en el pie de página.
     </p>
+  );
+}
+
+function RouteCard({
+  icon,
+  title,
+  text,
+  onClick,
+}: {
+  icon: string;
+  title: string;
+  text: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex w-full items-center gap-4 rounded-[1.75rem] border border-slate-200 bg-white p-6 text-left shadow-sm transition hover:-translate-y-1 hover:border-slate-300"
+    >
+      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#123b8b] text-3xl text-white shadow-md">
+        {icon}
+      </div>
+      <div className="flex-1">
+        <h3 className="text-2xl font-semibold text-slate-900">{title}</h3>
+        <p className="mt-2 text-sm leading-7 text-slate-600">{text}</p>
+      </div>
+      <div className="text-3xl text-[#123b8b]">›</div>
+    </button>
+  );
+}
+
+function StepItem({
+  number,
+  title,
+  text,
+}: {
+  number: string;
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="flex gap-4">
+      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#123b8b] text-2xl font-semibold text-white shadow-md">
+        {number}
+      </div>
+      <div>
+        <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+        <p className="mt-2 text-sm leading-7 text-slate-600">{text}</p>
+      </div>
+    </div>
   );
 }
 
@@ -137,198 +213,197 @@ export default function App() {
     { title: "Facturación", email: "facturacion@livingparadise.com.co" },
   ];
 
-  const homeRoutes = [
+  const homeCards = [
     {
-      eyebrow: "Demostraciones",
-      title: "Agenda una experiencia de cocina en casa",
-      text: "Conoce una propuesta práctica, saludable y guiada directamente en tu hogar.",
-      cta: "Solicitar demostración",
+      icon: "⌂",
+      title: "Demostraciones en casa",
+      text: "Vive una experiencia práctica, clara y personalizada directamente en tu hogar.",
       page: "demostraciones" as const,
     },
     {
-      eyebrow: "Oportunidades",
-      title: "Únete a un proyecto con crecimiento comercial",
-      text: "Descubre el perfil que buscamos, cómo trabajamos y cómo iniciar tu proceso.",
-      cta: "Ver reclutamiento",
+      icon: "↗",
+      title: "Oportunidad de crecimiento",
+      text: "Únete a un entorno comercial con formación, acompañamiento y proyección.",
       page: "equipo" as const,
     },
     {
-      eyebrow: "Marca",
-      title: "Conoce la visión de Living Paradise",
-      text: "Explora una marca enfocada en experiencia, bienestar y presencia institucional.",
-      cta: "Ver la marca",
+      icon: "🛡",
+      title: "Marca institucional",
+      text: "Conoce una propuesta seria, organizada y enfocada en experiencia y bienestar.",
       page: "nosotros" as const,
-    },
-  ];
-
-  const customerSteps = [
-    {
-      title: "Solicita tu demostración",
-      text: "Déjanos tus datos o escríbenos por WhatsApp para coordinar una fecha.",
-    },
-    {
-      title: "Confirmamos la visita",
-      text: "Definimos horario, ubicación y cantidad de asistentes para organizar la experiencia.",
-    },
-    {
-      title: "Vive la experiencia en casa",
-      text: "Conoces la propuesta de cocina en un entorno real, resolviendo dudas de forma práctica.",
     },
   ];
 
   const demoBenefits = [
     {
-      title: "Demostración en tu hogar",
+      title: "Experiencia en un contexto real",
       description:
-        "La experiencia ocurre en casa, lo que permite ver de forma real cómo se integra a la rutina diaria.",
+        "La demostración ocurre en casa, lo que permite entender de forma práctica cómo se integra a la rutina diaria.",
     },
     {
-      title: "Enfoque en cocina saludable",
+      title: "Acompañamiento claro y profesional",
       description:
-        "La presentación está orientada a hábitos más prácticos y saludables, sin perder comodidad ni experiencia.",
+        "La visita no se siente improvisada. Se coordina con orden, se explica con claridad y se resuelven dudas con criterio.",
     },
     {
-      title: "Atención personalizada",
+      title: "Enfoque en bienestar y cocina práctica",
       description:
-        "Cada visita se coordina con claridad para brindar una atención ordenada, cercana y profesional.",
+        "La experiencia gira en torno a una forma de cocinar más consciente, cómoda y alineada con un estilo de vida moderno.",
     },
   ];
 
   const recruitmentBenefits = [
     "Proyección de crecimiento comercial y desarrollo personal.",
     "Capacitación y acompañamiento para fortalecer habilidades comerciales.",
-    "Cultura orientada a actitud, disciplina y ejecución.",
-    "Ambiente para personas que quieren construir resultados, no solo buscar empleo pasajero.",
+    "Ambiente para personas con actitud, disciplina y foco en resultados.",
+    "Una ruta seria para construir carrera y no solo buscar ingresos momentáneos.",
   ];
 
   const recruitmentProfile = [
     "Buena actitud y facilidad para relacionarse con personas.",
     "Interés por el aprendizaje comercial y el desarrollo personal.",
-    "Disciplina, constancia y enfoque en resultados.",
+    "Disciplina, constancia y orientación a resultados.",
     "Disponibilidad para trabajar con metas, seguimiento y formación continua.",
   ];
 
   const companyPillars = [
     {
       title: "Experiencia",
-      text: "Buscamos que cada contacto con la marca transmita cercanía, orden y confianza.",
+      text: "Cada interacción debe transmitir cercanía, orden y una sensación premium coherente con la marca.",
     },
     {
       title: "Bienestar",
       text: "Promovemos una visión del hogar conectada con cocina práctica, hábitos saludables y estilo de vida moderno.",
     },
     {
-      title: "Desarrollo",
-      text: "Trabajamos para construir una operación comercial sólida y una marca con proyección a largo plazo.",
+      title: "Crecimiento",
+      text: "Construimos una plataforma comercial e institucional con visión de largo plazo y foco en ejecución.",
     },
   ];
 
   const navButtonClass = (id: PageId) =>
-    `rounded-full px-4 py-2 text-sm font-medium transition ${
+    `rounded-full px-4 py-2 text-sm font-semibold transition ${
       activePage === id ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
     }`;
 
   const renderInicio = () => (
     <>
-      <section className="relative overflow-hidden border-b border-slate-200 bg-[radial-gradient(circle_at_top_left,_rgba(191,219,254,0.65),_transparent_32%),linear-gradient(135deg,#eff6ff_0%,#ffffff_46%,#f8fafc_100%)]">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-[1.05fr_0.95fr] md:items-center md:py-24">
+      <section className="border-b border-slate-200 bg-[linear-gradient(180deg,#eef4fb_0%,#ffffff_100%)]">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-16">
           <div>
-            <div className="inline-flex rounded-[2rem] border border-slate-200 bg-white px-5 py-4 shadow-sm">
-              <img src={logo} alt="Living Paradise" className="h-20 w-auto object-contain md:h-24" />
-            </div>
-            <p className="mt-8 text-sm font-medium uppercase tracking-[0.28em] text-sky-700">
-              Healthy modern home · demostraciones · crecimiento
-            </p>
-            <h1 className="mt-4 max-w-3xl text-4xl font-semibold leading-tight md:text-6xl">
-              Demostraciones de cocina en casa y oportunidades de crecimiento con una marca seria.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-              Living Paradise conecta tres frentes clave: experiencias de cocina en casa, reclutamiento comercial y presencia institucional. Aquí cada visitante encuentra rápido qué hacemos y cuál es el siguiente paso.
-            </p>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <PrimaryButton onClick={() => setActivePage("demostraciones")}>Solicitar demostración</PrimaryButton>
-              <SecondaryButton onClick={() => setActivePage("equipo")}>Ver oportunidades</SecondaryButton>
+            <div className="mb-8 inline-flex rounded-[2rem] border border-slate-200 bg-white px-6 py-5 shadow-sm">
+              <img src={logo} alt="Living Paradise" className="h-24 w-auto object-contain md:h-28" />
             </div>
 
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-[1.5rem] border border-slate-200 bg-white/85 p-4 backdrop-blur">
-                <p className="text-2xl font-semibold text-slate-900">En casa</p>
-                <p className="mt-1 text-sm text-slate-600">Demostración guiada y clara</p>
-              </div>
-              <div className="rounded-[1.5rem] border border-slate-200 bg-white/85 p-4 backdrop-blur">
-                <p className="text-2xl font-semibold text-slate-900">Profesional</p>
-                <p className="mt-1 text-sm text-slate-600">Atención organizada y seria</p>
-              </div>
-              <div className="rounded-[1.5rem] border border-slate-200 bg-white/85 p-4 backdrop-blur">
-                <p className="text-2xl font-semibold text-slate-900">Crecimiento</p>
-                <p className="mt-1 text-sm text-slate-600">Oportunidades y marca</p>
-              </div>
+            <p className="text-sm font-semibold uppercase tracking-[0.30em] text-[#1263b8]">
+              Healthy modern home · demostraciones · crecimiento
+            </p>
+
+            <h1 className="mt-5 max-w-4xl text-5xl font-semibold leading-[1.05] text-[#11224c] md:text-6xl">
+              Demostraciones de cocina en casa y oportunidades de crecimiento con una marca que inspira confianza.
+            </h1>
+
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
+              Living Paradise integra experiencias de cocina en casa, desarrollo comercial y presencia institucional
+              en una plataforma clara, elegante y orientada a resultados.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <PrimaryButton onClick={() => setActivePage("demostraciones")}>Agenda tu demostración</PrimaryButton>
+              <SecondaryButton onClick={() => setActivePage("equipo")}>Únete al equipo</SecondaryButton>
             </div>
           </div>
 
-          <div className="grid gap-4">
-            <div className="rounded-[2.2rem] bg-slate-900 p-8 text-white shadow-2xl shadow-slate-200">
-              <p className="text-sm uppercase tracking-[0.28em] text-sky-300">Cómo usar este sitio</p>
-              <h2 className="mt-4 text-3xl font-semibold">Elige la ruta que mejor encaja con lo que estás buscando.</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-300">
-                Si quieres conocer una experiencia de cocina en casa, ve a Demostraciones. Si buscas crecimiento comercial, entra a Reclutamiento. Si quieres entender la marca, visita Nosotros.
-              </p>
-              <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
-                <p className="text-sm font-medium uppercase tracking-[0.22em] text-sky-300">Rutas principales</p>
-                <div className="mt-4 grid gap-3">
-                  {homeRoutes.map((item) => (
-                    <button
-                      key={item.title}
-                      type="button"
-                      onClick={() => setActivePage(item.page)}
-                      className="rounded-2xl border border-white/10 bg-white/5 p-4 text-left transition hover:bg-white/10"
-                    >
-                      <p className="text-xs uppercase tracking-[0.24em] text-sky-300">{item.eyebrow}</p>
-                      <p className="mt-2 text-lg font-semibold">{item.title}</p>
-                      <p className="mt-2 text-sm leading-6 text-slate-300">{item.text}</p>
-                      <p className="mt-3 text-sm font-medium text-white">{item.cta} →</p>
-                    </button>
-                  ))}
-                </div>
-              </div>
+          <div className="overflow-hidden rounded-[2.2rem] border border-slate-200 bg-white shadow-xl shadow-slate-200">
+            <img
+              src={heroDemo}
+              alt="Demostración de cocina en casa con familia y cookware"
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+
+        <div className="mx-auto grid max-w-7xl gap-5 px-6 pb-12 md:grid-cols-3">
+          {homeCards.map((card) => (
+            <RouteCard
+              key={card.title}
+              icon={card.icon}
+              title={card.title}
+              text={card.text}
+              onClick={() => setActivePage(card.page)}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-[#f1f5fb] py-16">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+          <div>
+            <div className="mb-8 flex items-center gap-4">
+              <div className="h-px flex-1 bg-slate-300" />
+              <h2 className="text-3xl font-semibold text-[#11224c]">¿Cómo funciona?</h2>
+              <div className="h-px flex-1 bg-slate-300" />
             </div>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              <StepItem
+                number="1"
+                title="Solicita tu demostración"
+                text="Completa el formulario o escríbenos y cuéntanos qué quieres conocer."
+              />
+              <StepItem
+                number="2"
+                title="Confirmamos la visita"
+                text="Coordinamos contigo el día y la hora que mejor se adapten a tu agenda."
+              />
+              <StepItem
+                number="3"
+                title="Vive la experiencia en casa"
+                text="Disfruta una demostración personalizada y resuelve todas tus dudas."
+              />
+            </div>
+          </div>
+
+          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-lg shadow-slate-200">
+            <img
+              src={teamGrowth}
+              alt="Equipo de trabajo reunido revisando plan de crecimiento comercial"
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#123b8b] py-10 text-white">
+        <div className="mx-auto grid max-w-7xl gap-6 px-6 md:grid-cols-[1.2fr_1fr_auto] md:items-center">
+          <div>
+            <p className="text-3xl font-semibold leading-tight">Construye una carrera con dirección comercial.</p>
+          </div>
+          <p className="text-sm leading-7 text-blue-100">
+            Buscamos personas con actitud, disciplina y enfoque en resultados. Si quieres crecer de verdad, aquí sí
+            hay una ruta.
+          </p>
+          <div>
+            <SecondaryButton onClick={() => setActivePage("equipo")}>Conocer oportunidades</SecondaryButton>
           </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-20">
         <SectionTitle
-          eyebrow="Por qué Living Paradise"
-          title="Información más clara para el cliente y una marca mejor presentada."
-          description="La home ya no debe sonar bonita pero confusa. Debe explicar rápido qué ofrecemos, para quién es y por dónde avanzar."
+          eyebrow="Lo que sí debe quedar claro"
+          title="Una web que explica mejor lo que haces, vende mejor y proyecta más valor."
+          description="Antes el sitio se veía correcto, pero no pegaba. Ahora el mensaje es más directo, el logo tiene más presencia y la marca se siente más premium y más viva."
         />
+
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {companyPillars.map((pillar) => (
             <div key={pillar.title} className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm">
-              <p className="text-sm uppercase tracking-[0.24em] text-sky-700">{pillar.title}</p>
-              <h3 className="mt-3 text-2xl font-semibold">{pillar.title}</h3>
+              <p className="text-sm uppercase tracking-[0.24em] text-[#1263b8]">{pillar.title}</p>
+              <h3 className="mt-3 text-2xl font-semibold text-slate-900">{pillar.title}</h3>
               <p className="mt-3 text-sm leading-7 text-slate-600">{pillar.text}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section className="bg-white py-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <SectionTitle
-            eyebrow="Proceso para clientes"
-            title="Así funciona una demostración de cocina en casa."
-            description="La gente no necesita discursos largos. Necesita entender el proceso, sentirse tranquila y saber qué esperar."
-          />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {customerSteps.map((step, index) => (
-              <div key={step.title} className="rounded-[2rem] border border-slate-200 bg-slate-50 p-7 shadow-sm">
-                <p className="text-sm font-medium uppercase tracking-[0.24em] text-sky-700">Paso {index + 1}</p>
-                <h3 className="mt-3 text-2xl font-semibold">{step.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{step.text}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
     </>
@@ -337,34 +412,30 @@ export default function App() {
   const renderDemostraciones = () => (
     <PageShell
       eyebrow="Demostraciones"
-      title="Conoce una experiencia de cocina en casa de forma clara, práctica y personalizada."
-      description="Esta página debe responder tres preguntas sin rodeos: qué es la demostración, cómo se agenda y por qué vale la pena vivirla."
+      title="Vive una experiencia de cocina en casa clara, elegante y personalizada."
+      description="La página debe aterrizar el valor sin rodeos: qué es la experiencia, cómo se agenda y por qué vale la pena conocerla."
     >
-      <div className="grid gap-10 md:grid-cols-[1fr_1fr]">
-        <div>
+      <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="space-y-6">
+          <div className="overflow-hidden rounded-[2rem] border border-slate-200 shadow-lg shadow-slate-200">
+            <img src={heroDemo} alt="Demostración de cocina Living Paradise" className="h-full w-full object-cover" />
+          </div>
+
           <div className="grid gap-4">
             {demoBenefits.map((item) => (
               <div key={item.title} className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
-                <h3 className="text-lg font-semibold">{item.title}</h3>
+                <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-slate-600">{item.description}</p>
               </div>
             ))}
-          </div>
-
-          <div className="mt-6 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6">
-            <p className="text-sm uppercase tracking-[0.24em] text-sky-700">Qué incluye</p>
-            <ul className="mt-4 grid gap-3 text-sm leading-7 text-slate-600">
-              <li>• Coordinación previa de fecha, horario y lugar.</li>
-              <li>• Presentación guiada enfocada en cocina en casa.</li>
-              <li>• Espacio para resolver dudas y conocer la experiencia de forma real.</li>
-            </ul>
           </div>
         </div>
 
         <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-6 shadow-sm md:p-8">
           <h3 className="text-2xl font-semibold text-slate-900">Solicita tu demostración</h3>
           <p className="mt-3 text-sm leading-7 text-slate-600">
-            Déjanos tus datos para coordinar una visita. También puedes escribirnos por WhatsApp o correo si prefieres ir directo.
+            Déjanos tus datos para coordinar una visita. También puedes escribirnos por WhatsApp o correo si quieres
+            avanzar de forma más directa.
           </p>
 
           <div className="mt-6 overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white p-4">
@@ -384,26 +455,32 @@ export default function App() {
   const renderEquipo = () => (
     <PageShell
       eyebrow="Únete al equipo"
-      title="Una oportunidad para personas con actitud comercial, disciplina y ganas de crecer."
-      description="La página de reclutamiento debe ser directa: a quién buscamos, qué ofrecemos y cómo aplicar. Nada de dejar al candidato adivinando."
+      title="Una oportunidad para personas con actitud comercial, disciplina y hambre de crecimiento."
+      description="Aquí no sirve el copy genérico de reclutamiento. Esta página debe decir de frente a quién buscan, qué ofrecen y cómo aplicar."
     >
-      <div className="grid gap-10 md:grid-cols-[1fr_1fr]">
-        <div className="rounded-[2rem] bg-slate-900 p-8 text-white shadow-2xl shadow-slate-200">
-          <p className="text-sm uppercase tracking-[0.25em] text-sky-300">Qué ofrecemos</p>
-          <h2 className="mt-4 text-3xl font-semibold">Un entorno de formación, acompañamiento y proyección.</h2>
-          <ul className="mt-6 grid gap-3 text-sm leading-7 text-slate-300">
-            {recruitmentBenefits.map((item) => <li key={item}>• {item}</li>)}
-          </ul>
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <PrimaryButton href="mailto:contrataciones@livingparadise.com.co">Enviar hoja de vida</PrimaryButton>
-            <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${recruitWhatsappMessage}`}>Hablar por WhatsApp</SecondaryButton>
+      <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="space-y-6">
+          <div className="overflow-hidden rounded-[2rem] border border-slate-200 shadow-lg shadow-slate-200">
+            <img src={teamGrowth} alt="Equipo de trabajo Living Paradise" className="h-full w-full object-cover" />
+          </div>
+
+          <div className="rounded-[2rem] bg-[#123b8b] p-8 text-white shadow-2xl shadow-slate-200">
+            <p className="text-sm uppercase tracking-[0.25em] text-blue-200">Qué ofrecemos</p>
+            <h2 className="mt-4 text-3xl font-semibold leading-tight">Un entorno de formación, acompañamiento y proyección.</h2>
+            <ul className="mt-6 grid gap-3 text-sm leading-7 text-blue-100">
+              {recruitmentBenefits.map((item) => <li key={item}>• {item}</li>)}
+            </ul>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <PrimaryButton href="mailto:contrataciones@livingparadise.com.co">Enviar hoja de vida</PrimaryButton>
+              <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${recruitWhatsappMessage}`}>Hablar por WhatsApp</SecondaryButton>
+            </div>
           </div>
         </div>
 
         <div>
           <div className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
-            <p className="text-sm uppercase tracking-[0.24em] text-sky-700">Perfil buscado</p>
-            <h3 className="mt-3 text-2xl font-semibold">Esto es lo que valoramos en los candidatos.</h3>
+            <p className="text-sm uppercase tracking-[0.24em] text-[#1263b8]">Perfil buscado</p>
+            <h3 className="mt-3 text-2xl font-semibold text-slate-900">Esto es lo que valoramos en los candidatos.</h3>
             <ul className="mt-4 grid gap-3 text-sm leading-7 text-slate-600">
               {recruitmentProfile.map((item) => <li key={item}>• {item}</li>)}
             </ul>
@@ -431,21 +508,23 @@ export default function App() {
   const renderNosotros = () => (
     <PageShell
       eyebrow="Nosotros"
-      title="Living Paradise es una marca que busca unir experiencia, bienestar y crecimiento comercial."
-      description="Nuestra presencia institucional debe transmitir claridad, confianza y una dirección de marca consistente."
+      title="Living Paradise es una marca que mezcla elegancia, bienestar y dirección comercial."
+      description="Nuestra presencia institucional debe comunicar seriedad, experiencia y una propuesta de valor coherente, no una marca improvisada."
     >
       <div className="grid gap-6 md:grid-cols-3">
         {companyPillars.map((pillar) => (
           <div key={pillar.title} className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm">
-            <h3 className="text-xl font-semibold">{pillar.title}</h3>
+            <h3 className="text-xl font-semibold text-slate-900">{pillar.title}</h3>
             <p className="mt-3 text-sm leading-7 text-slate-600">{pillar.text}</p>
           </div>
         ))}
       </div>
+
       <div className="mt-10 rounded-[2rem] border border-slate-200 bg-slate-50 p-8">
-        <h3 className="text-2xl font-semibold">Qué queremos proyectar</h3>
-        <p className="mt-4 text-sm leading-7 text-slate-600">
-          Una marca profesional, organizada y cercana, que cuida tanto la experiencia del cliente como la proyección de su equipo. La web debe reflejar exactamente eso.
+        <h3 className="text-2xl font-semibold text-slate-900">Qué queremos proyectar</h3>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-slate-600">
+          Una marca organizada, premium y cercana, capaz de generar confianza en clientes, atraer talento comercial y
+          construir posicionamiento institucional. La web tiene que estar a la altura de esa intención.
         </p>
       </div>
     </PageShell>
@@ -454,8 +533,8 @@ export default function App() {
   const renderContacto = () => (
     <PageShell
       eyebrow="Contacto"
-      title="Canales claros para responder mejor y operar con más orden."
-      description="Cada correo tiene una función. Eso mejora la atención, transmite estructura y evita el caos operativo de meter todo en una sola bandeja."
+      title="Canales corporativos claros para responder mejor y operar con más orden."
+      description="Cada correo cumple una función. Eso mejora la atención, transmite estructura y evita el caos de meter todo en una sola bandeja."
     >
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {corporateEmails.map((item) => (
@@ -464,7 +543,7 @@ export default function App() {
             href={`mailto:${item.email}`}
             className="rounded-[1.75rem] border border-slate-200 bg-white p-6 text-sm text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-900"
           >
-            <p className="text-xs uppercase tracking-[0.24em] text-sky-700">{item.title}</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-[#1263b8]">{item.title}</p>
             <p className="mt-3 font-medium text-slate-900">{item.email}</p>
           </a>
         ))}
@@ -481,13 +560,18 @@ export default function App() {
       <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
         <div className="grid gap-6 text-sm leading-7 text-slate-600">
           <p>
-            Los datos personales suministrados a través de este sitio serán utilizados por Living Paradise para gestionar solicitudes de demostraciones, procesos de reclutamiento, contacto comercial y seguimiento relacionado con los servicios y oportunidades ofrecidas por la marca.
+            Los datos personales suministrados a través de este sitio serán utilizados por Living Paradise para
+            gestionar solicitudes de demostraciones, procesos de reclutamiento, contacto comercial y seguimiento
+            relacionado con los servicios y oportunidades ofrecidas por la marca.
           </p>
           <p>
-            Al diligenciar los formularios, el titular autoriza el tratamiento de su información para fines de contacto, atención, seguimiento comercial y gestión de procesos de selección, de acuerdo con la normatividad aplicable en Colombia.
+            Al diligenciar los formularios, el titular autoriza el tratamiento de su información para fines de
+            contacto, atención, seguimiento comercial y gestión de procesos de selección, de acuerdo con la
+            normatividad aplicable en Colombia.
           </p>
           <p>
-            El titular podrá solicitar actualización, corrección o eliminación de sus datos escribiendo a info@livingparadise.com.co o al canal de contacto correspondiente publicado en este sitio.
+            El titular podrá solicitar actualización, corrección o eliminación de sus datos escribiendo a
+            info@livingparadise.com.co o al canal de contacto correspondiente publicado en este sitio.
           </p>
         </div>
       </div>
@@ -512,21 +596,27 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen bg-white text-slate-900">
       <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-4 lg:flex-row lg:items-center lg:justify-between">
           <button type="button" onClick={() => setActivePage("inicio")} className="flex items-center gap-4 text-left">
-            <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+            <div className="rounded-[1.5rem] border border-slate-200 bg-white px-5 py-4 shadow-sm">
               <img src={logo} alt="Living Paradise" className="h-14 w-auto object-contain md:h-16" />
             </div>
             <div>
-              <p className="text-base font-semibold text-slate-900">Living Paradise</p>
-              <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Healthy modern home</p>
+              <p className="text-[1.75rem] font-semibold leading-none text-slate-900">Living Paradise</p>
+              <p className="mt-1 text-sm uppercase tracking-[0.28em] text-slate-500">Healthy modern home</p>
             </div>
           </button>
+
           <nav className="flex flex-wrap gap-2">
             {pages.map((page) => (
-              <button key={page.id} type="button" onClick={() => setActivePage(page.id)} className={navButtonClass(page.id)}>
+              <button
+                key={page.id}
+                type="button"
+                onClick={() => setActivePage(page.id)}
+                className={navButtonClass(page.id)}
+              >
                 {page.label}
               </button>
             ))}
@@ -536,57 +626,58 @@ export default function App() {
 
       <main>{renderPage()}</main>
 
-      <section className="bg-slate-950 py-20 text-white">
-        <div className="mx-auto max-w-7xl px-6 text-center">
-          <p className="text-sm font-medium uppercase tracking-[0.25em] text-sky-300">livingparadise.com.co</p>
-          <h2 className="mt-4 text-3xl font-semibold md:text-5xl">Una base más clara para vender, reclutar y construir marca.</h2>
-          <p className="mx-auto mt-6 max-w-2xl text-sm leading-8 text-slate-300 md:text-base">
-            Ya no estamos solo maquillando la web. Estamos organizando el mensaje y la estructura para que funcione de verdad como activo comercial e institucional.
-          </p>
-          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-            <PrimaryButton onClick={() => setActivePage("demostraciones")}>Ver demostraciones</PrimaryButton>
-            <SecondaryButton onClick={() => setActivePage("equipo")}>Ver reclutamiento</SecondaryButton>
-          </div>
-        </div>
-      </section>
-
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-10 md:grid-cols-[1.1fr_0.9fr_0.9fr]">
+      <footer className="bg-[#071b49] text-white">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-12 md:grid-cols-[1.2fr_0.9fr_0.9fr_0.7fr]">
           <div>
-            <p className="text-lg font-semibold text-slate-900">Living Paradise</p>
-            <p className="mt-2 text-xs uppercase tracking-[0.24em] text-slate-500">Healthy modern home</p>
-            <p className="mt-4 max-w-md text-sm leading-7 text-slate-600">
-              Living Paradise integra demostraciones de cocina en casa, reclutamiento comercial y presencia institucional en una misma plataforma de marca.
+            <img src={logo} alt="Living Paradise" className="h-20 w-auto object-contain brightness-[3]" />
+            <p className="mt-5 max-w-sm text-sm leading-7 text-blue-100">
+              Experiencias que transforman hogares y personas a través de la cocina, el bienestar y el crecimiento.
             </p>
           </div>
 
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-900">Accesos</p>
-            <div className="mt-4 grid gap-3 text-sm text-slate-600">
-              <button type="button" onClick={() => setActivePage("demostraciones")} className="text-left hover:text-slate-900">Demostraciones</button>
-              <button type="button" onClick={() => setActivePage("equipo")} className="text-left hover:text-slate-900">Únete al equipo</button>
-              <button type="button" onClick={() => setActivePage("nosotros")} className="text-left hover:text-slate-900">Nosotros</button>
-              <button type="button" onClick={() => setActivePage("contacto")} className="text-left hover:text-slate-900">Contacto</button>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-blue-200">Enlaces rápidos</p>
+            <div className="mt-4 grid gap-3 text-sm text-blue-50">
+              <button type="button" onClick={() => setActivePage("demostraciones")} className="text-left hover:text-white">
+                Demostraciones
+              </button>
+              <button type="button" onClick={() => setActivePage("equipo")} className="text-left hover:text-white">
+                Únete al equipo
+              </button>
+              <button type="button" onClick={() => setActivePage("nosotros")} className="text-left hover:text-white">
+                Nosotros
+              </button>
+              <button type="button" onClick={() => setActivePage("contacto")} className="text-left hover:text-white">
+                Contacto
+              </button>
             </div>
           </div>
 
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-900">Contacto</p>
-            <div className="mt-4 grid gap-3 text-sm text-slate-600">
-              <a href="mailto:info@livingparadise.com.co" className="hover:text-slate-900">info@livingparadise.com.co</a>
-              <a href="mailto:demolivingp@gmail.com" className="hover:text-slate-900">demolivingp@gmail.com</a>
-              <a href="mailto:contrataciones@livingparadise.com.co" className="hover:text-slate-900">contrataciones@livingparadise.com.co</a>
-              <a href={`https://wa.me/${whatsappNumber}?text=${demoWhatsappMessage}`} className="hover:text-slate-900">WhatsApp</a>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-blue-200">Contacto</p>
+            <div className="mt-4 grid gap-3 text-sm text-blue-50">
+              <a href="mailto:info@livingparadise.com.co" className="hover:text-white">info@livingparadise.com.co</a>
+              <a href="mailto:demostraciones@livingparadise.com.co" className="hover:text-white">demostraciones@livingparadise.com.co</a>
+              <a href="mailto:contrataciones@livingparadise.com.co" className="hover:text-white">contrataciones@livingparadise.com.co</a>
+              <a href={`https://wa.me/${whatsappNumber}?text=${demoWhatsappMessage}`} className="hover:text-white">
+                WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-blue-200">Legal</p>
+            <div className="mt-4 grid gap-3 text-sm text-blue-50">
+              <button type="button" onClick={() => setActivePage("privacidad")} className="text-left hover:text-white">
+                Política de privacidad
+              </button>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-slate-200">
-          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-6 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
-            <p>© 2026 Living Paradise. Todos los derechos reservados.</p>
-            <button type="button" onClick={() => setActivePage("privacidad")} className="text-left hover:text-slate-900">
-              Política de privacidad y tratamiento de datos
-            </button>
+        <div className="border-t border-white/10">
+          <div className="mx-auto max-w-7xl px-6 py-5 text-sm text-blue-100">
+            © 2026 Living Paradise. Todos los derechos reservados.
           </div>
         </div>
       </footer>
