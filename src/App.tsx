@@ -148,7 +148,7 @@ function RouteCard({
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center gap-5 rounded-[1.35rem] border border-[#d7dce5] bg-white px-6 py-5 text-left shadow-[0_6px_18px_rgba(16,37,74,0.06)] transition hover:-translate-y-0.5"
+      className="flex w-full items-start gap-5 rounded-[1.35rem] border border-[#d7dce5] bg-white px-6 py-5 text-left shadow-[0_6px_18px_rgba(16,37,74,0.06)] transition hover:-translate-y-0.5"
     >
       <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#123d8c] text-white shadow-md">
         {icon}
@@ -157,7 +157,7 @@ function RouteCard({
         <h3 className="text-[1.08rem] font-semibold leading-tight text-[#24395d]">{title}</h3>
         <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
       </div>
-      <div className="shrink-0 text-[#123d8c]">
+      <div className="shrink-0 pt-1 text-[#123d8c]">
         <ArrowIcon />
       </div>
     </button>
@@ -180,7 +180,7 @@ function StepCard({
       <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#123d8c] text-2xl font-semibold text-white shadow-md">
         {number}
       </div>
-      <div className="max-w-[220px]">
+      <div className="max-w-[250px]">
         <h3 className="text-[1.05rem] font-semibold text-[#24395d]">{title}</h3>
         <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
       </div>
@@ -277,130 +277,20 @@ export default function App() {
     { title: "Facturación", email: "facturacion@livingparadise.com.co" },
   ];
 
-  const navButtonClass = (id: PageId) =>
-    `relative px-4 py-2 text-[1.04rem] font-semibold transition ${
-      activePage === id ? "text-[#163f8d]" : "text-slate-500 hover:text-[#163f8d]"
-    }`;
-
-  const renderInicio = () => (
-    <>
-      <section className="border-b border-[#dde3ee] bg-[#f2f5fa]">
-        <div className="mx-auto max-w-[1600px] px-6 py-10 lg:px-10 lg:py-8">
-          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-            <div className="pt-4">
-              <p className="text-sm font-semibold uppercase tracking-[0.32em] text-[#1263b8]">
-                Healthy modern home · demostraciones · talleres de cocina
-              </p>
-
-              <h1 className="heading-serif mt-4 max-w-[760px] text-5xl leading-[0.98] text-[#18305c] md:text-[4.4rem]">
-                Talleres y demostraciones de cocina en casa con una experiencia clara, elegante y personalizada.
-              </h1>
-
-              <p className="mt-4 max-w-[690px] text-[1.18rem] leading-8 text-slate-600">
-                En Living Paradise llevamos a tu hogar una experiencia práctica para que conozcas una propuesta de cocina moderna, funcional y pensada para el bienestar. Todo se vive de forma guiada, cercana y profesional.
-              </p>
-
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <PrimaryButton onClick={() => setActivePage("demostraciones")}>Agenda tu demostración</PrimaryButton>
-                <SecondaryButton onClick={() => setActivePage("contacto")}>Solicita información</SecondaryButton>
-              </div>
-            </div>
-
-            <div className="overflow-hidden rounded-[1.5rem] border border-[#d7dce5] bg-white shadow-[0_12px_30px_rgba(17,39,81,0.08)]">
-              <img
-                src={heroDemo}
-                alt="Demostración de cocina en casa con familia"
-                className="h-[360px] w-full object-cover md:h-[430px] lg:h-[470px]"
-              />
-            </div>
-          </div>
-
-          <div className="mt-6 grid gap-5 md:grid-cols-3">
-            <RouteCard
-              icon={<HouseIcon />}
-              title="Demostraciones en casa"
-              text="Vive una experiencia práctica, clara y personalizada en tu hogar."
-              onClick={() => setActivePage("demostraciones")}
-            />
-            <RouteCard
-              icon={<GrowthIcon />}
-              title="Oportunidad de crecimiento"
-              text="Únete a un entorno comercial con formación, acompañamiento y proyección."
-              onClick={() => setActivePage("equipo")}
-            />
-            <RouteCard
-              icon={<ShieldIcon />}
-              title="Marca institucional"
-              text="Conoce una propuesta seria, organizada y enfocada en experiencia y bienestar."
-              onClick={() => setActivePage("nosotros")}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="border-b border-[#dde3ee] bg-[#f6f8fb]">
-        <div className="mx-auto grid max-w-[1600px] gap-8 px-6 py-7 lg:grid-cols-[1.35fr_0.65fr] lg:items-stretch lg:px-10">
-          <div>
-            <div className="flex items-center justify-center gap-8">
-              <div className="h-px flex-1 max-w-[110px] bg-[#9eb0d0]" />
-              <h2 className="heading-serif text-[2.25rem] text-[#24395d]">¿Cómo funciona?</h2>
-              <div className="h-px flex-1 max-w-[110px] bg-[#9eb0d0]" />
-            </div>
-
-            <div className="mt-8 grid gap-8 lg:grid-cols-3">
-              <StepCard
-                number="1"
-                title="Solicita tu demostración"
-                text="Completa el formulario y cuéntanos qué deseas conocer."
-              />
-              <StepCard
-                number="2"
-                title="Confirmamos la visita"
-                text="Coordinamos contigo el día y la hora que mejor se adapten a tu agenda."
-              />
-              <StepCard
-                number="3"
-                title="Vive la experiencia en casa"
-                text="Disfruta una demostración personalizada y resuelve todas tus dudas."
-                showArrow={false}
-              />
-            </div>
-          </div>
-
-          <div className="overflow-hidden rounded-[1.4rem] border border-[#d7dce5] bg-white shadow-[0_10px_28px_rgba(17,39,81,0.08)]">
-            <img
-              src={teamGrowth}
-              alt="Equipo reunido revisando crecimiento comercial"
-              className="h-full min-h-[250px] w-full object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#123d8c]">
-        <div className="mx-auto grid max-w-[1600px] gap-6 px-6 py-6 text-white lg:grid-cols-[0.72fr_1fr_0.6fr] lg:items-center lg:px-10">
-          <div className="flex items-center gap-4">
-            <div className="rounded-full border border-white/20 p-3 text-white">
-              <UsersIcon />
-            </div>
-            <p className="heading-serif text-[2rem] leading-tight">Construye una carrera con dirección comercial.</p>
-          </div>
-
-          <div className="border-white/25 lg:border-l lg:pl-8">
-            <p className="text-[1.1rem] leading-7 text-blue-100">
-              Buscamos personas con actitud, disciplina y enfoque en resultados.
-            </p>
-          </div>
-
-          <div className="flex justify-start lg:justify-end">
-            <SecondaryButton light onClick={() => setActivePage("equipo")}>
-              Conocer oportunidades
-            </SecondaryButton>
-          </div>
-        </div>
-      </section>
-    </>
-  );
+  const companyPillars = [
+    {
+      title: "Experiencia",
+      text: "Queremos que más familias conozcan nuestra experiencia. Cada demostración está pensada para que el cliente viva algo claro, cómodo y bien presentado dentro de su propio hogar, junto con su familia.",
+    },
+    {
+      title: "Bienestar",
+      text: "La propuesta conecta cocina práctica, hábitos más conscientes y una visión moderna del hogar.",
+    },
+    {
+      title: "Confianza",
+      text: "La marca busca comunicar orden, profesionalismo y una atención que se siente seria desde el primer contacto.",
+    },
+  ];
 
   const demoBenefits = [
     {
@@ -420,11 +310,180 @@ export default function App() {
     },
   ];
 
+  const recruitmentBenefits = [
+    "Formación estructurada en ventas y negociación.",
+    "Acompañamiento en campo y desarrollo de habilidades comerciales.",
+    "Proyección interna basada en desempeño.",
+    "Entorno de trabajo orientado a resultados y estándares profesionales.",
+  ];
+
+  const recruitmentProfile = [
+    "Habilidades de comunicación y actitud comercial.",
+    "Interés por el aprendizaje y el desarrollo personal.",
+    "Disciplina, constancia y orientación a resultados.",
+    "Disponibilidad para trabajar con metas, seguimiento y formación continua.",
+  ];
+
+  const navButtonClass = (id: PageId) =>
+    `relative px-4 py-2 text-[1.04rem] font-semibold transition ${
+      activePage === id ? "text-[#163f8d]" : "text-slate-500 hover:text-[#163f8d]"
+    }`;
+
+  const renderInicio = () => (
+    <>
+      <section className="border-b border-[#dde3ee] bg-[#f2f5fa]">
+        <div className="mx-auto max-w-[1600px] px-6 py-12 lg:px-10 lg:py-10">
+          <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+            <div className="pt-2">
+              <p className="text-sm font-semibold uppercase tracking-[0.34em] text-[#1263b8]">
+                Healthy modern home ·
+              </p>
+
+              <h1 className="heading-serif mt-5 max-w-[760px] text-5xl leading-[0.98] text-[#18305c] md:text-[4.25rem]">
+                Queremos que nos conozcas, agenda un taller de cocina en casa totalmente gratuito con una
+                experiencia elegante, práctica y guiada.
+              </h1>
+
+              <p className="mt-5 max-w-[700px] text-[1.12rem] leading-8 text-slate-600">
+                En Living Paradise llevamos a tu hogar una experiencia de cocina saludable y adicional te
+                prepararemos una receta sin agua, sin sal y sin aceite. ¡Agéndate ya! Y obtén regalos de la
+                marca totalmente gratis.
+              </p>
+
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <PrimaryButton onClick={() => setActivePage("demostraciones")}>Agenda tu demostración</PrimaryButton>
+                <SecondaryButton onClick={() => setActivePage("contacto")}>Solicita información</SecondaryButton>
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-[1.8rem] border border-[#d7dce5] bg-white shadow-[0_12px_30px_rgba(17,39,81,0.08)]">
+              <img
+                src={heroDemo}
+                alt="Demostración de cocina en casa con familia"
+                className="h-[380px] w-full object-cover object-center md:h-[470px] lg:h-[520px]"
+              />
+            </div>
+          </div>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            <RouteCard
+              icon={<HouseIcon />}
+              title="Demostraciones en casa"
+              text="Vive una experiencia de cocina práctica, clara y personalizada directamente en tu hogar, nosotros te prepararemos un delicioso plato para que disfrutes en familia."
+              onClick={() => setActivePage("demostraciones")}
+            />
+            <RouteCard
+              icon={<GrowthIcon />}
+              title="Taller guiado"
+              text="Conoce la propuesta, te damos tips de cocina saludable, paso a paso. Solo tienes que prestarnos tu cocina y estar con tu núcleo familiar."
+              onClick={() => setActivePage("demostraciones")}
+            />
+            <RouteCard
+              icon={<ShieldIcon />}
+              title="Atención profesional"
+              text="Queremos que las familias nos conozcan. Agenda tu visita con una marca seria, organizada y enfocada en experiencia y bienestar. No tienes que comprar absolutamente nada. Adicional podrás ganar regalos de la marca."
+              onClick={() => setActivePage("contacto")}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[#dde3ee] bg-[#f7f9fc]">
+        <div className="mx-auto grid max-w-[1600px] gap-8 px-6 py-8 lg:grid-cols-[1.35fr_0.65fr] lg:items-stretch lg:px-10">
+          <div>
+            <div className="flex items-center justify-center gap-8">
+              <div className="h-px flex-1 max-w-[110px] bg-[#9eb0d0]" />
+              <h2 className="heading-serif text-[2.25rem] text-[#24395d]">¿Cómo funciona?</h2>
+              <div className="h-px flex-1 max-w-[110px] bg-[#9eb0d0]" />
+            </div>
+
+            <div className="mt-8 grid gap-8 lg:grid-cols-3">
+              <StepCard
+                number="1"
+                title="Solicita tu demostración"
+                text="Completa el formulario o escríbenos para coordinar una visita según tu interés. Tenemos disponibilidad todos los días de la semana, a cualquier hora."
+              />
+              <StepCard
+                number="2"
+                title="Confirmamos la visita"
+                text="Definimos contigo el día, la hora y los detalles para organizar la experiencia en casa."
+              />
+              <StepCard
+                number="3"
+                title="Vive la experiencia"
+                text="Disfruta un taller de cocina donde te prepararemos un plato delicioso para ti y tu familia, resuelve tus dudas y, si te gusta, podrás acceder a regalos que la marca trae para ti."
+                showArrow={false}
+              />
+            </div>
+          </div>
+
+          <div className="overflow-hidden rounded-[1.4rem] border border-[#d7dce5] bg-white shadow-[0_10px_28px_rgba(17,39,81,0.08)]">
+            <img
+              src={teamGrowth}
+              alt="Equipo reunido revisando crecimiento comercial"
+              className="h-full min-h-[250px] w-full object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#123d8c]">
+        <div className="mx-auto grid max-w-[1600px] gap-6 px-6 py-6 text-white lg:grid-cols-[0.9fr_1.2fr_0.55fr] lg:items-center lg:px-10">
+          <div className="flex items-center gap-4">
+            <div className="rounded-full border border-white/20 p-3 text-white">
+              <UsersIcon />
+            </div>
+            <p className="heading-serif text-[2rem] leading-tight">Construye una carrera con dirección comercial</p>
+          </div>
+
+          <div className="border-white/25 lg:border-l lg:pl-8">
+            <p className="text-[1rem] leading-7 text-blue-100">
+              En Living Paradise, compañía enfocada en experiencias de alto nivel en el hogar, nos
+              encontramos en proceso de expansión. Buscamos personas interesadas en desarrollarse dentro
+              del área comercial, con enfoque en formación, ejecución y crecimiento organizacional.
+            </p>
+          </div>
+
+          <div className="flex justify-start lg:justify-end">
+            <SecondaryButton light onClick={() => setActivePage("equipo")}>
+              Conocer oportunidades
+            </SecondaryButton>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1600px] px-6 py-16 lg:px-10">
+        <div className="max-w-4xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#1263b8]">Sobre Living Paradise</p>
+          <h2 className="heading-serif mt-4 text-4xl leading-tight text-[#1d2e55] md:text-5xl">
+            Una marca enfocada en experiencias de cocina en casa con una presentación seria y memorable.
+          </h2>
+          <p className="mt-6 max-w-4xl text-base leading-8 text-slate-600">
+            Living Paradise, distribuidor autorizado de Royal Prestige en Colombia, nace para llevar al
+            hogar una experiencia más elegante, cercana y bien guiada alrededor de la cocina moderna. La
+            marca busca transmitir confianza, bienestar y una forma más clara de conectar con las personas
+            desde la experiencia en sitio, ofreciendo talleres de cocina saludable a las familias y
+            enfocándose en el tema de alimentación saludable.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {companyPillars.map((pillar) => (
+            <div key={pillar.title} className="rounded-[1.35rem] border border-[#d7dce5] bg-white p-7 shadow-sm">
+              <h3 className="text-xl font-semibold text-[#24395d]">{pillar.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">{pillar.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+
   const renderDemostraciones = () => (
     <PageShell
       eyebrow="Demostraciones"
       title="Vive una experiencia de cocina en casa clara, elegante y personalizada."
-      description="Esta página debe aterrizar el valor sin rodeos: qué es la experiencia, cómo se agenda y por qué vale la pena conocerla."
+      description="Conoce una experiencia práctica y guiada directamente en tu hogar, pensada para resolver dudas, mostrar la propuesta y conectar con una cocina más saludable."
     >
       <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="space-y-6">
@@ -463,25 +522,11 @@ export default function App() {
     </PageShell>
   );
 
-  const recruitmentBenefits = [
-    "Proyección de crecimiento comercial y desarrollo personal.",
-    "Capacitación y acompañamiento para fortalecer habilidades comerciales.",
-    "Ambiente para personas con actitud, disciplina y foco en resultados.",
-    "Una ruta seria para construir carrera y no solo buscar ingresos momentáneos.",
-  ];
-
-  const recruitmentProfile = [
-    "Buena actitud y facilidad para relacionarse con personas.",
-    "Interés por el aprendizaje comercial y el desarrollo personal.",
-    "Disciplina, constancia y orientación a resultados.",
-    "Disponibilidad para trabajar con metas, seguimiento y formación continua.",
-  ];
-
   const renderEquipo = () => (
     <PageShell
       eyebrow="Únete al equipo"
-      title="Una oportunidad para personas con actitud comercial, disciplina y hambre de crecimiento."
-      description="Aquí no sirve el copy genérico. Esta página debe decir de frente a quién buscan, qué ofrecen y cómo aplicar."
+      title="Construye una carrera comercial con formación, disciplina y oportunidades reales de crecimiento."
+      description="Buscamos personas con actitud, disciplina y deseo real de crecer en un entorno comercial con acompañamiento, formación y enfoque en resultados."
     >
       <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="space-y-6">
@@ -530,25 +575,10 @@ export default function App() {
     </PageShell>
   );
 
-  const companyPillars = [
-    {
-      title: "Experiencia",
-      text: "Cada demostración está pensada para que el cliente viva algo claro, cómodo y bien presentado dentro de su propio hogar.",
-    },
-    {
-      title: "Bienestar",
-      text: "La propuesta conecta cocina práctica, hábitos más conscientes y una visión moderna del hogar.",
-    },
-    {
-      title: "Confianza",
-      text: "La marca busca comunicar orden, profesionalismo y una atención que se siente seria desde el primer contacto.",
-    },
-  ];
-
   const renderNosotros = () => (
     <PageShell
       eyebrow="Nosotros"
-      title="Living Paradise es una marca que mezcla elegancia, bienestar y dirección comercial."
+      title="Living Paradise es una marca que mezcla elegancia, bienestar y una experiencia cercana en el hogar."
       description="Nuestra presencia institucional debe comunicar seriedad, experiencia y una propuesta de valor coherente."
     >
       <div className="grid gap-6 md:grid-cols-3">
@@ -574,7 +604,7 @@ export default function App() {
     <PageShell
       eyebrow="Contacto"
       title="Canales corporativos claros para responder mejor y operar con más orden."
-      description="Cada correo cumple una función. Eso mejora la atención, transmite estructura y evita el caos operativo."
+      description="Elige el canal correcto según el tipo de solicitud. Cada correo cumple una función y evita mezclar todo en una sola bandeja."
     >
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {corporateEmails.map((item) => (
@@ -640,10 +670,12 @@ export default function App() {
       <header className="border-b border-[#dde3ee] bg-white">
         <div className="mx-auto flex max-w-[1600px] flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between lg:px-10">
           <button type="button" onClick={() => setActivePage("inicio")} className="flex items-center gap-6 text-left">
-            <img src={logo} alt="Living Paradise" className="h-[118px] w-auto object-contain md:h-[142px]" />
+            <img src={logo} alt="Living Paradise" className="h-[124px] w-auto object-contain md:h-[150px]" />
             <div className="hidden h-20 w-px bg-[#c9d1df] md:block" />
             <div>
-              <p className="text-[1.95rem] font-medium tracking-[0.03em] text-slate-600 md:text-[2.2rem]">Healthy Modern Home</p>
+              <p className="text-[1.9rem] font-medium tracking-[0.03em] text-slate-600 md:text-[2.3rem]">
+                Healthy Modern Home
+              </p>
             </div>
           </button>
 
@@ -672,7 +704,8 @@ export default function App() {
           <div>
             <img src={logo} alt="Living Paradise" className="h-20 w-auto object-contain brightness-[3.3]" />
             <p className="mt-5 max-w-sm text-sm leading-7 text-blue-100">
-              Experiencias de cocina en casa pensadas para conectar bienestar, atención profesional y una marca que inspira confianza.
+              Experiencias de cocina en casa pensadas para conectar bienestar, atención profesional y una marca
+              que inspira confianza.
             </p>
           </div>
 
