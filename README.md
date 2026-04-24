@@ -1,24 +1,33 @@
-# Living Paradise Web - Strategic Update
-
-Ajustes aplicados en esta versión:
-- paleta visual afinada con acentos dorados inspirados en la pieza de reclutamiento
-- tamaños de títulos y textos reducidos para un look más elegante
-- sección de reclutamiento movida más arriba en la home
-- imagen de oficina/reclutamiento incorporada en home y página de equipo
-- logo del footer corregido sobre base blanca
-- formularios de HubSpot reconstruidos con un componente React para evitar que desaparezcan
-- mejoras generales de copy en Inicio, Demostraciones y Únete al equipo
-
-Siguiente paso recomendado:
-1. subir esta versión al repo
-2. validar en Vercel
-3. revisar móvil
-4. afinar copy de cada página con capturas reales
-
-
-Último ajuste:
-- Home reenfocado a reclutamiento como prioridad principal
-- Contacto simplificado a teléfono + 3 correos
-
-
-Corrección aplicada: integración de HubSpot reforzada con carga explícita del script y montaje controlado del formulario para evitar que desaparezca en navegación o deploy.
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <title>Living Paradise</title>
+    <meta
+      name="description"
+      content="Living Paradise: demostraciones de cocina en casa, oportunidades de crecimiento y presencia institucional."
+    />
+    <meta property="og:title" content="Living Paradise" />
+    <meta
+      property="og:description"
+      content="Demostraciones de cocina en casa, oportunidades de crecimiento y presencia institucional."
+    />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:url" content="https://www.livingparadise.com.co" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Living Paradise" />
+    <meta
+      name="twitter:description"
+      content="Demostraciones de cocina en casa, oportunidades de crecimiento y presencia institucional."
+    />
+    <meta name="twitter:image" content="/og-image.png" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
