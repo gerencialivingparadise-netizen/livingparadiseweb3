@@ -238,6 +238,8 @@ export default function App() {
   const recruitWhatsappMessage = encodeURIComponent(
     "Hola, quiero conocer las oportunidades de Living Paradise."
   );
+  const demoHubspotUrl = "https://ulc5i.share.hsforms.com/20WZQvaXmQCqjEi20T4qq2w";
+  const recruitHubspotUrl = "https://ulc5i.share.hsforms.com/2cZ2zfOxOSo27WEg24qLQnQ";
 
   
 
@@ -447,6 +449,7 @@ export default function App() {
   );
 
 
+
   const renderDemostraciones = () => (
     <PageShell
       eyebrow="Demostraciones"
@@ -480,30 +483,32 @@ export default function App() {
           <div className="inline-flex rounded-full bg-[#f4e7d0] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#8b6528]">
             Solicita tu demostración
           </div>
-          <h3 className="mt-4 text-2xl font-semibold text-[#24395d]">Déjanos tus datos y coordinamos la visita</h3>
+          <h3 className="mt-4 text-2xl font-semibold text-[#24395d]">Completa el formulario y coordinamos tu visita</h3>
           <p className="mt-3 text-sm leading-7 text-slate-600">
-            También puedes escribirnos por WhatsApp o correo si quieres avanzar de forma más directa.
+            También puedes escribirnos por WhatsApp o correo si prefieres avanzar por otro canal.
           </p>
 
-          <div className="mt-6 overflow-hidden rounded-[1.2rem] border border-[#d7deea] bg-white p-4">
-            <div
-              formId={demoFormId}
-              portalId={hubspotPortalId}
-              region={hubspotRegion}
-              targetId="demo-form-target"
-              className="min-h-[420px]"
+          <div className="mt-6 overflow-hidden rounded-[1.2rem] border border-[#d7deea] bg-white">
+            <iframe
+              src={demoHubspotUrl}
+              title="Formulario de demostraciones Living Paradise"
+              className="h-[760px] w-full"
+              style={{ border: 0 }}
+              loading="lazy"
             />
           </div>
 
           <div className="mt-6 flex flex-col gap-4 sm:flex-row">
             <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${demoWhatsappMessage}`}>Escribir por WhatsApp</SecondaryButton>
-            <SecondaryButton href="mailto:demolivingp@gmail.com">Escribir por correo</SecondaryButton>
+            <SecondaryButton href="mailto:demostraciones@livingparadise.com.co">Solicitar por correo</SecondaryButton>
           </div>
           <PrivacyNotice purpose="contacto, seguimiento comercial y gestión de la solicitud de demostración" />
         </div>
       </div>
     </PageShell>
   );
+
+
 
   const renderEquipo = () => (
     <PageShell
@@ -551,23 +556,23 @@ export default function App() {
 
           <div className="rounded-[1.35rem] border border-[#d7deea] bg-white p-6 shadow-sm">
             <div className="inline-flex rounded-full bg-[#f4e7d0] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#8b6528]">
-              Postúlate aquí
+              Postúlate ahora
             </div>
             <p className="mt-4 text-sm leading-7 text-slate-600">
-              Completa el formulario y nuestro equipo revisará tu información para el proceso de reclutamiento.
+              Completa el formulario para iniciar el proceso. También puedes escribirnos por WhatsApp o enviar tu hoja de vida por correo.
             </p>
-            <div className="mt-5 overflow-hidden rounded-[1.2rem] border border-[#d7deea] bg-white p-4">
-              <div
-                formId={recruitFormId}
-                portalId={hubspotPortalId}
-                region={hubspotRegion}
-                targetId="recruit-form-target"
-                className="min-h-[420px]"
+            <div className="mt-5 overflow-hidden rounded-[1.2rem] border border-[#d7deea] bg-white">
+              <iframe
+                src={recruitHubspotUrl}
+                title="Formulario de reclutamiento Living Paradise"
+                className="h-[820px] w-full"
+                style={{ border: 0 }}
+                loading="lazy"
               />
             </div>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-              <SecondaryButton href="mailto:contrataciones@livingparadise.com.co">Aplicar por correo</SecondaryButton>
-              <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${recruitWhatsappMessage}`}>Aplicar por WhatsApp</SecondaryButton>
+              <SecondaryButton href="mailto:contrataciones@livingparadise.com.co">Enviar hoja de vida</SecondaryButton>
+              <SecondaryButton href={`https://wa.me/${whatsappNumber}?text=${recruitWhatsappMessage}`}>Hablar por WhatsApp</SecondaryButton>
             </div>
             <PrivacyNotice purpose="contacto, evaluación del perfil y gestión del proceso de reclutamiento" />
           </div>
@@ -575,6 +580,7 @@ export default function App() {
       </div>
     </PageShell>
   );
+
 
   const renderNosotros = () => (
     <PageShell
