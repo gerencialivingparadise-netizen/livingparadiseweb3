@@ -1,12 +1,10 @@
-# Living Paradise Web Impact
+# Living Paradise Web - Mockup Match
 
-Versión actualizada con una home más impactante basada en el mockup aprobado:
-- logo con más presencia
-- hero con imagen de demostración
-- cards de rutas principales
-- sección "¿Cómo funciona?"
-- CTA de reclutamiento
-- footer más sólido
-- páginas funcionales de demostraciones y reclutamiento con HubSpot
+Versión ajustada para acercarse de forma mucho más fiel al mockup aprobado:
+- header tipo editorial
+- hero con composición y tipografía estilo mockup
+- cards y pasos más alineados con el diseño aprobado
+- CTA azul inferior
+- footer oscuro más cercano al mockup
 
-Sube todo al repo y Vercel redepliega automáticamente.
+Sube esta versión al mismo repo para que Vercel redepliegue.
