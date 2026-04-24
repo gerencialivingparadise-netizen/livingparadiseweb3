@@ -684,14 +684,8 @@ export default function App() {
     <div className="min-h-screen bg-white text-slate-900">
       <header className="border-b border-[#dde3ee] bg-white">
         <div className="mx-auto flex max-w-[1450px] flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between lg:px-10">
-          <button type="button" onClick={() => setActivePage("inicio")} className="flex items-center gap-5 text-left">
-            <img src={logo} alt="Living Paradise" className="h-[88px] w-auto object-contain md:h-[108px]" />
-            <div className="hidden h-16 w-px bg-[#c9d1df] md:block" />
-            <div>
-              <p className="text-[1.6rem] font-medium tracking-[0.03em] text-slate-600 md:text-[2rem]">
-                Healthy Modern Home
-              </p>
-            </div>
+          <button type="button" onClick={() => setActivePage("inicio")} className="flex items-center gap-4 text-left">
+            <img src={logo} alt="Living Paradise" className="h-[98px] w-auto object-contain md:h-[118px]" />
           </button>
 
           <nav className="flex flex-wrap gap-4 md:gap-7">
