@@ -4,7 +4,220 @@ import heroDemo from "./assets/hero-demo.jpg";
 import teamGrowth from "./assets/team-growth.jpg";
 import recruitmentPoster from "./assets/recruitment-office-poster.png";
 
+type PageId = "inicio" | "demostraciones" | "equipo" | "nosotros" | "contacto" | "privacidad";
 
+function HouseIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M3 10.5 12 3l9 7.5" />
+      <path d="M5 9.5V21h14V9.5" />
+      <path d="M9 21v-6h6v6" />
+    </svg>
+  );
+}
+
+function GrowthIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M4 20h16" />
+      <path d="M7 16v-4" />
+      <path d="M12 16V9" />
+      <path d="M17 16V6" />
+      <path d="m13 7 4-4 3 3" />
+    </svg>
+  );
+}
+
+function ShieldIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z" />
+    </svg>
+  );
+}
+
+function UsersIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
+      <circle cx="9.5" cy="7" r="3.5" />
+      <path d="M20 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M14 4.15a3.5 3.5 0 0 1 0 5.7" />
+    </svg>
+  );
+}
+
+function MailIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M4 6h16v12H4z" />
+      <path d="m4 8 8 6 8-6" />
+    </svg>
+  );
+}
+
+function PhoneIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.87 19.87 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12.8 19.87 19.87 0 0 1 1.08 4.18 2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72c.12.9.34 1.79.65 2.64a2 2 0 0 1-.45 2.11L7 9.73a16 16 0 0 0 7.27 7.27l1.26-1.26a2 2 0 0 1 2.11-.45c.85.31 1.74.53 2.64.65A2 2 0 0 1 22 16.92Z" />
+    </svg>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M5 12h14" />
+      <path d="m13 6 6 6-6 6" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+      <circle cx="12" cy="12" r="9" />
+      <path d="m8.5 12.5 2.3 2.3 4.7-5.1" />
+    </svg>
+  );
+}
+
+function PrimaryButton({
+  children,
+  onClick,
+  href,
+}: {
+  children: ReactNode;
+  onClick?: () => void;
+  href?: string;
+}) {
+  const className =
+    "inline-flex items-center justify-center gap-2 rounded-xl bg-[#123d8c] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0f3376]";
+
+  if (href) {
+    return (
+      <a href={href} className={className}>
+        {children}
+        <ArrowIcon />
+      </a>
+    );
+  }
+
+  return (
+    <button type="button" onClick={onClick} className={className}>
+      {children}
+      <ArrowIcon />
+    </button>
+  );
+}
+
+function SecondaryButton({
+  children,
+  onClick,
+  href,
+  light = false,
+}: {
+  children: ReactNode;
+  onClick?: () => void;
+  href?: string;
+  light?: boolean;
+}) {
+  const className = light
+    ? "inline-flex items-center justify-center gap-2 rounded-xl border border-white/60 bg-white px-6 py-3 text-sm font-semibold text-[#123d8c] transition hover:bg-blue-50"
+    : "inline-flex items-center justify-center gap-2 rounded-xl border border-[#123d8c] bg-white px-6 py-3 text-sm font-semibold text-[#123d8c] transition hover:bg-blue-50";
+
+  if (href) {
+    return (
+      <a href={href} className={className}>
+        {children}
+        <ArrowIcon />
+      </a>
+    );
+  }
+
+  return (
+    <button type="button" onClick={onClick} className={className}>
+      {children}
+      <ArrowIcon />
+    </button>
+  );
+}
+
+function RouteCard({
+  icon,
+  title,
+  text,
+  onClick,
+}: {
+  icon: ReactNode;
+  title: string;
+  text: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex w-full items-start gap-4 rounded-[1.25rem] border border-[#d7deea] bg-white px-5 py-5 text-left shadow-[0_8px_20px_rgba(16,37,74,0.06)] transition hover:-translate-y-0.5"
+    >
+      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#123d8c] text-white shadow-md">
+        {icon}
+      </div>
+      <div className="min-w-0 flex-1">
+        <h3 className="text-[1rem] font-semibold leading-tight text-[#24395d]">{title}</h3>
+        <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+      </div>
+      <div className="shrink-0 pt-1 text-[#c9a15a]">
+        <ArrowIcon />
+      </div>
+    </button>
+  );
+}
+
+function StepCard({
+  number,
+  title,
+  text,
+}: {
+  number: string;
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="rounded-[1.25rem] border border-[#d7deea] bg-white p-6 shadow-sm">
+      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#123d8c] text-lg font-semibold text-white">
+        {number}
+      </div>
+      <h3 className="mt-4 text-[1rem] font-semibold text-[#24395d]">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+    </div>
+  );
+}
+
+function PageShell({
+  eyebrow,
+  title,
+  description,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+  children: ReactNode;
+}) {
+  return (
+    <section className="mx-auto max-w-[1450px] px-6 py-14 md:py-18">
+      <div className="max-w-4xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#1263b8]">{eyebrow}</p>
+        <h1 className="heading-serif mt-4 max-w-4xl text-[2.2rem] font-semibold leading-[1.05] text-[#1d2e55] md:text-[3.2rem]">
+          {title}
+        </h1>
+        <p className="mt-5 max-w-3xl text-[1rem] leading-8 text-slate-600">{description}</p>
+      </div>
+      <div className="mt-10">{children}</div>
+    </section>
+  );
+}
 
 function PrivacyNotice({ purpose }: { purpose: string }) {
   return (
