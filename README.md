@@ -19,3 +19,6 @@ Siguiente paso recomendado:
 Último ajuste:
 - Home reenfocado a reclutamiento como prioridad principal
 - Contacto simplificado a teléfono + 3 correos
+
+
+Corrección aplicada: integración de HubSpot reforzada con carga explícita del script y montaje controlado del formulario para evitar que desaparezca en navegación o deploy.
