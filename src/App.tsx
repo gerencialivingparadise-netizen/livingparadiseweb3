@@ -1,13 +1,39 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import logo from "./assets/logo-living-paradise.png";
 import heroDemo from "./assets/hero-demo.jpg";
 import teamGrowth from "./assets/team-growth.jpg";
+import recruitmentPoster from "./assets/recruitment-office-poster.png";
+
+declare global {
+  interface Window {
+    hbspt?: {
+      forms?: {
+        create: (options: {
+          region: string;
+          portalId: string;
+          formId: string;
+          target: string;
+        }) => void;
+      };
+    };
+  }
+}
 
 type PageId = "inicio" | "demostraciones" | "equipo" | "nosotros" | "contacto" | "privacidad";
 
+const colors = {
+  navy: "#123d8c",
+  navyDark: "#0a2257",
+  navyText: "#1c325e",
+  gold: "#c9a15a",
+  goldSoft: "#f4e7d0",
+  bgSoft: "#f4f7fb",
+  border: "#d7deea",
+};
+
 function HouseIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
       <path d="M3 10.5 12 3l9 7.5" />
       <path d="M5 9.5V21h14V9.5" />
       <path d="M9 21v-6h6v6" />
@@ -17,7 +43,7 @@ function HouseIcon() {
 
 function GrowthIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
       <path d="M4 20h16" />
       <path d="M7 16v-4" />
       <path d="M12 16V9" />
@@ -29,7 +55,7 @@ function GrowthIcon() {
 
 function ShieldIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
       <path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z" />
     </svg>
   );
@@ -37,7 +63,7 @@ function ShieldIcon() {
 
 function UsersIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.8">
       <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
       <circle cx="9.5" cy="7" r="3.5" />
       <path d="M20 21v-2a4 4 0 0 0-3-3.87" />
@@ -65,9 +91,18 @@ function PhoneIcon() {
 
 function ArrowIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
       <path d="M5 12h14" />
       <path d="m13 6 6 6-6 6" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+      <circle cx="12" cy="12" r="9" />
+      <path d="m8.5 12.5 2.3 2.3 4.7-5.1" />
     </svg>
   );
 }
@@ -82,7 +117,7 @@ function PrimaryButton({
   href?: string;
 }) {
   const className =
-    "inline-flex items-center justify-center gap-3 rounded-xl bg-[#123d8c] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0e3274]";
+    "inline-flex items-center justify-center gap-2 rounded-xl bg-[#123d8c] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0f3376]";
 
   if (href) {
     return (
@@ -113,8 +148,8 @@ function SecondaryButton({
   light?: boolean;
 }) {
   const className = light
-    ? "inline-flex items-center justify-center gap-3 rounded-xl border border-white/70 bg-white px-6 py-3 text-sm font-semibold text-[#123d8c] transition hover:bg-blue-50"
-    : "inline-flex items-center justify-center gap-3 rounded-xl border border-[#123d8c] bg-white px-6 py-3 text-sm font-semibold text-[#123d8c] transition hover:bg-blue-50";
+    ? "inline-flex items-center justify-center gap-2 rounded-xl border border-white/60 bg-white px-6 py-3 text-sm font-semibold text-[#123d8c] transition hover:bg-blue-50"
+    : "inline-flex items-center justify-center gap-2 rounded-xl border border-[#123d8c] bg-white px-6 py-3 text-sm font-semibold text-[#123d8c] transition hover:bg-blue-50";
 
   if (href) {
     return (
@@ -148,16 +183,16 @@ function RouteCard({
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-start gap-5 rounded-[1.35rem] border border-[#d7dce5] bg-white px-6 py-5 text-left shadow-[0_6px_18px_rgba(16,37,74,0.06)] transition hover:-translate-y-0.5"
+      className="flex w-full items-start gap-4 rounded-[1.25rem] border border-[#d7deea] bg-white px-5 py-5 text-left shadow-[0_8px_20px_rgba(16,37,74,0.06)] transition hover:-translate-y-0.5"
     >
-      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#123d8c] text-white shadow-md">
+      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#123d8c] text-white shadow-md">
         {icon}
       </div>
       <div className="min-w-0 flex-1">
-        <h3 className="text-[1.08rem] font-semibold leading-tight text-[#24395d]">{title}</h3>
+        <h3 className="text-[1rem] font-semibold leading-tight text-[#24395d]">{title}</h3>
         <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
       </div>
-      <div className="shrink-0 pt-1 text-[#123d8c]">
+      <div className="shrink-0 pt-1 text-[#c9a15a]">
         <ArrowIcon />
       </div>
     </button>
@@ -168,30 +203,18 @@ function StepCard({
   number,
   title,
   text,
-  showArrow = true,
 }: {
   number: string;
   title: string;
   text: string;
-  showArrow?: boolean;
 }) {
   return (
-    <div className="relative flex items-start gap-4">
-      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#123d8c] text-2xl font-semibold text-white shadow-md">
+    <div className="rounded-[1.25rem] border border-[#d7deea] bg-white p-6 shadow-sm">
+      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#123d8c] text-lg font-semibold text-white">
         {number}
       </div>
-      <div className="max-w-[250px]">
-        <h3 className="text-[1.05rem] font-semibold text-[#24395d]">{title}</h3>
-        <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
-      </div>
-      {showArrow ? (
-        <div className="absolute right-[-28px] top-6 hidden text-[#8da2c7] lg:block">
-          <svg viewBox="0 0 80 12" className="h-3 w-16" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path strokeDasharray="4 4" d="M1 6h72" />
-            <path d="m68 1 7 5-7 5" />
-          </svg>
-        </div>
-      ) : null}
+      <h3 className="mt-4 text-[1rem] font-semibold text-[#24395d]">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
     </div>
   );
 }
@@ -208,17 +231,65 @@ function PageShell({
   children: ReactNode;
 }) {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-      <div className="max-w-3xl">
-        <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#1263b8]">{eyebrow}</p>
-        <h1 className="heading-serif mt-4 max-w-4xl text-4xl font-semibold leading-tight text-[#1d2e55] md:text-5xl">
+    <section className="mx-auto max-w-[1450px] px-6 py-14 md:py-18">
+      <div className="max-w-4xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#1263b8]">{eyebrow}</p>
+        <h1 className="heading-serif mt-4 max-w-4xl text-[2.2rem] font-semibold leading-[1.05] text-[#1d2e55] md:text-[3.2rem]">
           {title}
         </h1>
-        <p className="mt-6 max-w-3xl text-base leading-8 text-slate-600">{description}</p>
+        <p className="mt-5 max-w-3xl text-[1rem] leading-8 text-slate-600">{description}</p>
       </div>
-      <div className="mt-12">{children}</div>
+      <div className="mt-10">{children}</div>
     </section>
   );
+}
+
+function HubspotForm({
+  formId,
+  portalId,
+  region,
+  targetId,
+  className = "",
+}: {
+  formId: string;
+  portalId: string;
+  region: string;
+  targetId: string;
+  className?: string;
+}) {
+  const formRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    let intervalId: number | undefined;
+
+    const createForm = () => {
+      if (!formRef.current || !window.hbspt?.forms) return false;
+
+      formRef.current.innerHTML = "";
+      window.hbspt.forms.create({
+        region,
+        portalId,
+        formId,
+        target: `#${targetId}`,
+      });
+      return true;
+    };
+
+    if (!createForm()) {
+      intervalId = window.setInterval(() => {
+        if (createForm() && intervalId) {
+          window.clearInterval(intervalId);
+        }
+      }, 500);
+    }
+
+    return () => {
+      if (intervalId) window.clearInterval(intervalId);
+      if (formRef.current) formRef.current.innerHTML = "";
+    };
+  }, [formId, portalId, region, targetId]);
+
+  return <div id={targetId} ref={formRef} className={className} />;
 }
 
 function PrivacyNotice({ purpose }: { purpose: string }) {
@@ -280,73 +351,62 @@ export default function App() {
   const companyPillars = [
     {
       title: "Experiencia",
-      text: "Queremos que más familias conozcan nuestra experiencia. Cada demostración está pensada para que el cliente viva algo claro, cómodo y bien presentado dentro de su propio hogar, junto con su familia.",
+      text: "Cada visita está pensada para que la familia viva una experiencia clara, cómoda y bien presentada dentro de su propio hogar.",
     },
     {
       title: "Bienestar",
-      text: "La propuesta conecta cocina práctica, hábitos más conscientes y una visión moderna del hogar.",
+      text: "La propuesta conecta cocina práctica, alimentación más consciente y una visión moderna del hogar.",
     },
     {
       title: "Confianza",
-      text: "La marca busca comunicar orden, profesionalismo y una atención que se siente seria desde el primer contacto.",
+      text: "Buscamos proyectar orden, profesionalismo y una atención que se sienta seria desde el primer contacto.",
     },
   ];
 
   const demoBenefits = [
-    {
-      title: "Experiencia en un contexto real",
-      description:
-        "La demostración ocurre en casa y eso permite entender de forma práctica cómo encaja la propuesta en la rutina diaria.",
-    },
-    {
-      title: "Acompañamiento claro y profesional",
-      description:
-        "La visita se coordina con orden, se explica con claridad y se atienden dudas con criterio y enfoque consultivo.",
-    },
-    {
-      title: "Enfoque en bienestar y cocina práctica",
-      description:
-        "La experiencia está alineada con una cocina más cómoda, más consciente y más coherente con un estilo de vida moderno.",
-    },
+    "Experiencia guiada en casa para conocer la propuesta de forma práctica.",
+    "Preparación de una receta sin agua, sin sal y sin aceite.",
+    "Tips de cocina saludable y espacio para resolver dudas.",
+    "Posibilidad de recibir regalos de la marca al vivir la experiencia.",
   ];
 
   const recruitmentBenefits = [
     "Formación estructurada en ventas y negociación.",
-    "Acompañamiento en campo y desarrollo de habilidades comerciales.",
+    "Acompañamiento en campo y desarrollo comercial.",
     "Proyección interna basada en desempeño.",
-    "Entorno de trabajo orientado a resultados y estándares profesionales.",
+    "Entorno orientado a resultados y estándares profesionales.",
   ];
 
   const recruitmentProfile = [
-    "Habilidades de comunicación y actitud comercial.",
-    "Interés por el aprendizaje y el desarrollo personal.",
-    "Disciplina, constancia y orientación a resultados.",
-    "Disponibilidad para trabajar con metas, seguimiento y formación continua.",
+    "Habilidades de comunicación y relacionamiento.",
+    "Buena presentación personal.",
+    "Disciplina, compromiso y actitud comercial.",
+    "Interés por desarrollarse dentro del área comercial.",
   ];
 
   const navButtonClass = (id: PageId) =>
-    `relative px-4 py-2 text-[1.04rem] font-semibold transition ${
+    `relative px-4 py-2 text-[0.98rem] font-semibold transition ${
       activePage === id ? "text-[#163f8d]" : "text-slate-500 hover:text-[#163f8d]"
     }`;
 
   const renderInicio = () => (
     <>
-      <section className="border-b border-[#dde3ee] bg-[#f2f5fa]">
-        <div className="mx-auto max-w-[1600px] px-6 py-12 lg:px-10 lg:py-10">
+      <section className="border-b border-[#dde3ee] bg-[#f4f7fb]">
+        <div className="mx-auto max-w-[1450px] px-6 py-10 lg:px-10">
           <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
             <div className="pt-2">
-              <p className="text-sm font-semibold uppercase tracking-[0.34em] text-[#1263b8]">
-                Healthy modern home ·
+              <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#1263b8]">
+                Healthy Modern Home ·
               </p>
 
-              <h1 className="heading-serif mt-5 max-w-[760px] text-5xl leading-[0.98] text-[#18305c] md:text-[4.25rem]">
+              <h1 className="heading-serif mt-5 max-w-[720px] text-[2.8rem] leading-[1.02] text-[#18305c] md:text-[4rem]">
                 Queremos que nos conozcas, agenda un taller de cocina en casa totalmente gratuito con una
                 experiencia elegante, práctica y guiada.
               </h1>
 
-              <p className="mt-5 max-w-[700px] text-[1.12rem] leading-8 text-slate-600">
+              <p className="mt-5 max-w-[680px] text-[1rem] leading-8 text-slate-600">
                 En Living Paradise llevamos a tu hogar una experiencia de cocina saludable y adicional te
-                prepararemos una receta sin agua, sin sal y sin aceite. ¡Agéndate ya! Y obtén regalos de la
+                prepararemos una receta sin agua, sin sal y sin aceite. Agéndate ya y obtén regalos de la
                 marca totalmente gratis.
               </p>
 
@@ -356,11 +416,11 @@ export default function App() {
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-[1.8rem] border border-[#d7dce5] bg-white shadow-[0_12px_30px_rgba(17,39,81,0.08)]">
+            <div className="overflow-hidden rounded-[1.8rem] border border-[#d7deea] bg-white shadow-[0_16px_36px_rgba(17,39,81,0.08)]">
               <img
                 src={heroDemo}
                 alt="Demostración de cocina en casa con familia"
-                className="h-[380px] w-full object-cover object-center md:h-[470px] lg:h-[520px]"
+                className="h-[330px] w-full object-cover object-center md:h-[420px] lg:h-[500px]"
               />
             </div>
           </div>
@@ -369,108 +429,121 @@ export default function App() {
             <RouteCard
               icon={<HouseIcon />}
               title="Demostraciones en casa"
-              text="Vive una experiencia de cocina práctica, clara y personalizada directamente en tu hogar, nosotros te prepararemos un delicioso plato para que disfrutes en familia."
+              text="Vive una experiencia práctica, clara y personalizada directamente en tu hogar. Preparamos un delicioso plato para que disfrutes en familia."
               onClick={() => setActivePage("demostraciones")}
             />
             <RouteCard
               icon={<GrowthIcon />}
               title="Taller guiado"
-              text="Conoce la propuesta, te damos tips de cocina saludable, paso a paso. Solo tienes que prestarnos tu cocina y estar con tu núcleo familiar."
+              text="Conoce la propuesta paso a paso, recibe tips de cocina saludable y vive una presentación cercana y organizada."
               onClick={() => setActivePage("demostraciones")}
             />
             <RouteCard
               icon={<ShieldIcon />}
               title="Atención profesional"
-              text="Queremos que las familias nos conozcan. Agenda tu visita con una marca seria, organizada y enfocada en experiencia y bienestar. No tienes que comprar absolutamente nada. Adicional podrás ganar regalos de la marca."
+              text="Agenda tu visita con una marca seria, enfocada en experiencia y bienestar. No tienes que comprar nada para vivir la experiencia."
               onClick={() => setActivePage("contacto")}
             />
           </div>
         </div>
       </section>
 
-      <section className="border-b border-[#dde3ee] bg-[#f7f9fc]">
-        <div className="mx-auto grid max-w-[1600px] gap-8 px-6 py-8 lg:grid-cols-[1.35fr_0.65fr] lg:items-stretch lg:px-10">
-          <div>
-            <div className="flex items-center justify-center gap-8">
-              <div className="h-px flex-1 max-w-[110px] bg-[#9eb0d0]" />
-              <h2 className="heading-serif text-[2.25rem] text-[#24395d]">¿Cómo funciona?</h2>
-              <div className="h-px flex-1 max-w-[110px] bg-[#9eb0d0]" />
+      <section className="border-b border-[#dde3ee] bg-white">
+        <div className="mx-auto max-w-[1450px] px-6 py-12 lg:px-10">
+          <div className="grid gap-10 overflow-hidden rounded-[1.8rem] border border-[#e3d4ba] bg-gradient-to-r from-[#fffaf2] via-white to-[#f8fbff] p-7 shadow-[0_14px_34px_rgba(17,39,81,0.06)] lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#0a2257] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white">
+                <UsersIcon />
+                Reclutamiento
+              </div>
+              <h2 className="heading-serif mt-5 max-w-[560px] text-[2.2rem] leading-tight text-[#1d2e55] md:text-[3rem]">
+                Construye una carrera con dirección comercial en una marca en expansión.
+              </h2>
+              <p className="mt-4 max-w-[560px] text-[1rem] leading-8 text-slate-600">
+                En Living Paradise buscamos personas con propósito, enfoque y deseo real de crecer. La
+                oportunidad combina formación, acompañamiento en campo y una cultura orientada a resultados.
+              </p>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {[
+                  "Formación estructurada",
+                  "Acompañamiento en campo",
+                  "Proyección interna",
+                  "Entorno de resultados",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3 rounded-xl border border-[#ecd9bb] bg-white/80 px-4 py-3 text-sm font-medium text-[#24395d]">
+                    <span className="text-[#c9a15a]">
+                      <CheckIcon />
+                    </span>
+                    {item}
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-7 flex flex-col gap-4 sm:flex-row">
+                <PrimaryButton onClick={() => setActivePage("equipo")}>Conocer oportunidades</PrimaryButton>
+                <SecondaryButton href="mailto:contrataciones@livingparadise.com.co">Enviar hoja de vida</SecondaryButton>
+              </div>
             </div>
 
-            <div className="mt-8 grid gap-8 lg:grid-cols-3">
-              <StepCard
-                number="1"
-                title="Solicita tu demostración"
-                text="Completa el formulario o escríbenos para coordinar una visita según tu interés. Tenemos disponibilidad todos los días de la semana, a cualquier hora."
-              />
-              <StepCard
-                number="2"
-                title="Confirmamos la visita"
-                text="Definimos contigo el día, la hora y los detalles para organizar la experiencia en casa."
-              />
-              <StepCard
-                number="3"
-                title="Vive la experiencia"
-                text="Disfruta un taller de cocina donde te prepararemos un plato delicioso para ti y tu familia, resuelve tus dudas y, si te gusta, podrás acceder a regalos que la marca trae para ti."
-                showArrow={false}
+            <div className="overflow-hidden rounded-[1.6rem] border border-[#d7deea] bg-white shadow-[0_14px_32px_rgba(17,39,81,0.08)]">
+              <img
+                src={recruitmentPoster}
+                alt="Reclutamiento Living Paradise"
+                className="w-full object-cover"
               />
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="overflow-hidden rounded-[1.4rem] border border-[#d7dce5] bg-white shadow-[0_10px_28px_rgba(17,39,81,0.08)]">
-            <img
-              src={teamGrowth}
-              alt="Equipo reunido revisando crecimiento comercial"
-              className="h-full min-h-[250px] w-full object-cover"
+      <section className="border-b border-[#dde3ee] bg-[#f7f9fc]">
+        <div className="mx-auto max-w-[1450px] px-6 py-12 lg:px-10">
+          <div className="flex items-center justify-center gap-6">
+            <div className="h-px flex-1 max-w-[110px] bg-[#d8b884]" />
+            <h2 className="heading-serif text-[2rem] text-[#24395d] md:text-[2.25rem]">¿Cómo funciona?</h2>
+            <div className="h-px flex-1 max-w-[110px] bg-[#d8b884]" />
+          </div>
+
+          <div className="mt-8 grid gap-6 lg:grid-cols-3">
+            <StepCard
+              number="1"
+              title="Solicita tu demostración"
+              text="Completa el formulario o escríbenos para coordinar una visita según tu interés. Tenemos disponibilidad todos los días de la semana."
+            />
+            <StepCard
+              number="2"
+              title="Confirmamos la visita"
+              text="Definimos contigo el día, la hora y los detalles para organizar la experiencia en casa de la forma más cómoda."
+            />
+            <StepCard
+              number="3"
+              title="Vive la experiencia"
+              text="Disfruta un taller de cocina, prueba un plato delicioso, resuelve tus dudas y conoce los regalos que la marca trae para ti."
             />
           </div>
         </div>
       </section>
 
-      <section className="bg-[#123d8c]">
-        <div className="mx-auto grid max-w-[1600px] gap-6 px-6 py-6 text-white lg:grid-cols-[0.9fr_1.2fr_0.55fr] lg:items-center lg:px-10">
-          <div className="flex items-center gap-4">
-            <div className="rounded-full border border-white/20 p-3 text-white">
-              <UsersIcon />
-            </div>
-            <p className="heading-serif text-[2rem] leading-tight">Construye una carrera con dirección comercial</p>
-          </div>
-
-          <div className="border-white/25 lg:border-l lg:pl-8">
-            <p className="text-[1rem] leading-7 text-blue-100">
-              En Living Paradise, compañía enfocada en experiencias de alto nivel en el hogar, nos
-              encontramos en proceso de expansión. Buscamos personas interesadas en desarrollarse dentro
-              del área comercial, con enfoque en formación, ejecución y crecimiento organizacional.
-            </p>
-          </div>
-
-          <div className="flex justify-start lg:justify-end">
-            <SecondaryButton light onClick={() => setActivePage("equipo")}>
-              Conocer oportunidades
-            </SecondaryButton>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1600px] px-6 py-16 lg:px-10">
+      <section className="mx-auto max-w-[1450px] px-6 py-14 lg:px-10">
         <div className="max-w-4xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#1263b8]">Sobre Living Paradise</p>
-          <h2 className="heading-serif mt-4 text-4xl leading-tight text-[#1d2e55] md:text-5xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#1263b8]">Sobre Living Paradise</p>
+          <h2 className="heading-serif mt-4 text-[2.2rem] leading-tight text-[#1d2e55] md:text-[3rem]">
             Una marca enfocada en experiencias de cocina en casa con una presentación seria y memorable.
           </h2>
-          <p className="mt-6 max-w-4xl text-base leading-8 text-slate-600">
+          <p className="mt-5 max-w-4xl text-[1rem] leading-8 text-slate-600">
             Living Paradise, distribuidor autorizado de Royal Prestige en Colombia, nace para llevar al
             hogar una experiencia más elegante, cercana y bien guiada alrededor de la cocina moderna. La
             marca busca transmitir confianza, bienestar y una forma más clara de conectar con las personas
-            desde la experiencia en sitio, ofreciendo talleres de cocina saludable a las familias y
-            enfocándose en el tema de alimentación saludable.
+            desde la experiencia en sitio, ofreciendo talleres de cocina saludable a las familias.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
           {companyPillars.map((pillar) => (
-            <div key={pillar.title} className="rounded-[1.35rem] border border-[#d7dce5] bg-white p-7 shadow-sm">
-              <h3 className="text-xl font-semibold text-[#24395d]">{pillar.title}</h3>
+            <div key={pillar.title} className="rounded-[1.35rem] border border-[#d7deea] bg-white p-7 shadow-sm">
+              <div className="h-1 w-16 rounded-full bg-[#c9a15a]" />
+              <h3 className="mt-4 text-lg font-semibold text-[#24395d]">{pillar.title}</h3>
               <p className="mt-3 text-sm leading-7 text-slate-600">{pillar.text}</p>
             </div>
           ))}
@@ -482,34 +555,49 @@ export default function App() {
   const renderDemostraciones = () => (
     <PageShell
       eyebrow="Demostraciones"
-      title="Vive una experiencia de cocina en casa clara, elegante y personalizada."
-      description="Conoce una experiencia práctica y guiada directamente en tu hogar, pensada para resolver dudas, mostrar la propuesta y conectar con una cocina más saludable."
+      title="Agenda un taller de cocina en casa y vive una experiencia práctica, saludable y bien guiada."
+      description="La experiencia está pensada para que conozcas una propuesta de cocina moderna en tu propio hogar, con una demostración clara, acompañamiento profesional y un momento agradable para compartir en familia."
     >
       <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="space-y-6">
-          <div className="overflow-hidden rounded-[1.6rem] border border-[#d7dce5] shadow-[0_12px_30px_rgba(17,39,81,0.08)]">
-            <img src={heroDemo} alt="Demostración de cocina Living Paradise" className="h-full w-full object-cover" />
+          <div className="overflow-hidden rounded-[1.6rem] border border-[#d7deea] bg-white shadow-[0_12px_30px_rgba(17,39,81,0.08)]">
+            <img
+              src={heroDemo}
+              alt="Demostración de cocina Living Paradise"
+              className="h-[280px] w-full object-cover object-center md:h-[380px] lg:h-[460px]"
+            />
           </div>
 
-          <div className="grid gap-4">
-            {demoBenefits.map((item) => (
-              <div key={item.title} className="rounded-[1.35rem] border border-[#d7dce5] bg-white p-6 shadow-sm">
-                <h3 className="text-lg font-semibold text-[#24395d]">{item.title}</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-600">{item.description}</p>
-              </div>
-            ))}
+          <div className="rounded-[1.35rem] border border-[#e3d4ba] bg-[#fffaf2] p-6 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[#123d8c]">Qué incluye</p>
+            <ul className="mt-4 grid gap-3 text-sm leading-7 text-slate-700">
+              {demoBenefits.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-0.5 text-[#c9a15a]"><CheckIcon /></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        <div className="rounded-[1.6rem] border border-[#d7dce5] bg-[#f7f9fc] p-6 shadow-sm md:p-8">
-          <h3 className="text-2xl font-semibold text-[#24395d]">Solicita tu demostración</h3>
+        <div className="rounded-[1.6rem] border border-[#d7deea] bg-[#f7f9fc] p-6 shadow-sm md:p-8">
+          <div className="inline-flex rounded-full bg-[#f4e7d0] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#8b6528]">
+            Solicita tu demostración
+          </div>
+          <h3 className="mt-4 text-2xl font-semibold text-[#24395d]">Déjanos tus datos y coordinamos la visita</h3>
           <p className="mt-3 text-sm leading-7 text-slate-600">
-            Déjanos tus datos para coordinar una visita. También puedes escribirnos por WhatsApp o correo si
-            quieres avanzar de forma más directa.
+            También puedes escribirnos por WhatsApp o correo si quieres avanzar de forma más directa.
           </p>
 
-          <div className="mt-6 overflow-hidden rounded-[1.2rem] border border-[#d7dce5] bg-white p-4">
-            <div className="hs-form-frame" data-region={hubspotRegion} data-form-id={demoFormId} data-portal-id={hubspotPortalId} />
+          <div className="mt-6 overflow-hidden rounded-[1.2rem] border border-[#d7deea] bg-white p-4">
+            <HubspotForm
+              formId={demoFormId}
+              portalId={hubspotPortalId}
+              region={hubspotRegion}
+              targetId="demo-form-target"
+              className="min-h-[420px]"
+            />
           </div>
 
           <div className="mt-6 flex flex-col gap-4 sm:flex-row">
@@ -525,44 +613,62 @@ export default function App() {
   const renderEquipo = () => (
     <PageShell
       eyebrow="Únete al equipo"
-      title="Construye una carrera comercial con formación, disciplina y oportunidades reales de crecimiento."
-      description="Buscamos personas con actitud, disciplina y deseo real de crecer en un entorno comercial con acompañamiento, formación y enfoque en resultados."
+      title="Crece con nosotros y transforma tu futuro dentro de un entorno comercial serio, formativo y con proyección."
+      description="Buscamos personas con propósito, enfoque y deseo de crecer. Si te interesa desarrollarte en el área comercial, aquí encontrarás acompañamiento, formación y una ruta clara de crecimiento."
     >
       <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="space-y-6">
-          <div className="overflow-hidden rounded-[1.6rem] border border-[#d7dce5] shadow-[0_12px_30px_rgba(17,39,81,0.08)]">
-            <img src={teamGrowth} alt="Equipo de trabajo Living Paradise" className="h-full w-full object-cover" />
+          <div className="overflow-hidden rounded-[1.6rem] border border-[#d7deea] bg-white shadow-[0_12px_30px_rgba(17,39,81,0.08)]">
+            <img
+              src={recruitmentPoster}
+              alt="Oficina Living Paradise y llamado de reclutamiento"
+              className="w-full object-cover"
+            />
           </div>
 
-          <div className="rounded-[1.6rem] bg-[#123d8c] p-8 text-white shadow-[0_12px_30px_rgba(17,39,81,0.12)]">
-            <p className="text-sm uppercase tracking-[0.25em] text-blue-200">Qué ofrecemos</p>
-            <h2 className="heading-serif mt-4 text-4xl leading-tight">Un entorno de formación, acompañamiento y proyección.</h2>
-            <ul className="mt-6 grid gap-3 text-sm leading-7 text-blue-100">
-              {recruitmentBenefits.map((item) => <li key={item}>• {item}</li>)}
+          <div className="rounded-[1.6rem] bg-[#0a2257] p-8 text-white shadow-[0_12px_30px_rgba(17,39,81,0.12)]">
+            <p className="text-xs uppercase tracking-[0.28em] text-[#f0d2a1]">¿Qué ofrecemos?</p>
+            <h2 className="heading-serif mt-4 text-[2rem] leading-tight">Formación, acompañamiento y proyección real.</h2>
+            <ul className="mt-6 grid gap-3 text-sm leading-7 text-blue-50">
+              {recruitmentBenefits.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-0.5 text-[#f0d2a1]"><CheckIcon /></span>
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <PrimaryButton href="mailto:contrataciones@livingparadise.com.co">Enviar hoja de vida</PrimaryButton>
-              <SecondaryButton light href={`https://wa.me/${whatsappNumber}?text=${recruitWhatsappMessage}`}>Hablar por WhatsApp</SecondaryButton>
-            </div>
           </div>
         </div>
 
-        <div>
-          <div className="rounded-[1.35rem] border border-[#d7dce5] bg-white p-6 shadow-sm">
-            <p className="text-sm uppercase tracking-[0.24em] text-[#1263b8]">Perfil buscado</p>
-            <h3 className="mt-3 text-2xl font-semibold text-[#24395d]">Esto es lo que valoramos en los candidatos.</h3>
-            <ul className="mt-4 grid gap-3 text-sm leading-7 text-slate-600">
-              {recruitmentProfile.map((item) => <li key={item}>• {item}</li>)}
+        <div className="space-y-6">
+          <div className="rounded-[1.35rem] border border-[#e3d4ba] bg-[#fffaf2] p-6 shadow-sm">
+            <p className="text-xs uppercase tracking-[0.24em] text-[#8b6528]">Perfil que buscamos</p>
+            <h3 className="mt-3 text-2xl font-semibold text-[#24395d]">Lo que más valoramos en los candidatos</h3>
+            <ul className="mt-4 grid gap-3 text-sm leading-7 text-slate-700">
+              {recruitmentProfile.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-0.5 text-[#c9a15a]"><CheckIcon /></span>
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="mt-6 rounded-[1.35rem] border border-[#d7dce5] bg-[#f7f9fc] p-6 shadow-sm">
-            <h3 className="text-xl font-semibold text-[#24395d]">Postúlate aquí</h3>
-            <p className="mt-2 text-sm leading-7 text-slate-600">
+          <div className="rounded-[1.35rem] border border-[#d7deea] bg-white p-6 shadow-sm">
+            <div className="inline-flex rounded-full bg-[#f4e7d0] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#8b6528]">
+              Postúlate aquí
+            </div>
+            <p className="mt-4 text-sm leading-7 text-slate-600">
               Completa el formulario y nuestro equipo revisará tu información para el proceso de reclutamiento.
             </p>
-            <div className="mt-5 overflow-hidden rounded-[1.2rem] border border-[#d7dce5] bg-white p-4">
-              <div className="hs-form-frame" data-region={hubspotRegion} data-form-id={recruitFormId} data-portal-id={hubspotPortalId} />
+            <div className="mt-5 overflow-hidden rounded-[1.2rem] border border-[#d7deea] bg-white p-4">
+              <HubspotForm
+                formId={recruitFormId}
+                portalId={hubspotPortalId}
+                region={hubspotRegion}
+                targetId="recruit-form-target"
+                className="min-h-[420px]"
+              />
             </div>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
               <SecondaryButton href="mailto:contrataciones@livingparadise.com.co">Aplicar por correo</SecondaryButton>
@@ -578,19 +684,20 @@ export default function App() {
   const renderNosotros = () => (
     <PageShell
       eyebrow="Nosotros"
-      title="Living Paradise es una marca que mezcla elegancia, bienestar y una experiencia cercana en el hogar."
-      description="Nuestra presencia institucional debe comunicar seriedad, experiencia y una propuesta de valor coherente."
+      title="Living Paradise es una marca enfocada en experiencias de cocina en casa con una propuesta seria, elegante y cercana."
+      description="Nuestro objetivo es conectar bienestar, atención profesional y crecimiento comercial en una plataforma coherente y bien presentada."
     >
       <div className="grid gap-6 md:grid-cols-3">
         {companyPillars.map((pillar) => (
-          <div key={pillar.title} className="rounded-[1.35rem] border border-[#d7dce5] bg-white p-7 shadow-sm">
-            <h3 className="text-xl font-semibold text-[#24395d]">{pillar.title}</h3>
+          <div key={pillar.title} className="rounded-[1.35rem] border border-[#d7deea] bg-white p-7 shadow-sm">
+            <div className="h-1 w-16 rounded-full bg-[#c9a15a]" />
+            <h3 className="mt-4 text-lg font-semibold text-[#24395d]">{pillar.title}</h3>
             <p className="mt-3 text-sm leading-7 text-slate-600">{pillar.text}</p>
           </div>
         ))}
       </div>
 
-      <div className="mt-10 rounded-[1.6rem] border border-[#d7dce5] bg-[#f7f9fc] p-8">
+      <div className="mt-10 rounded-[1.6rem] border border-[#d7deea] bg-[#f7f9fc] p-8">
         <h3 className="text-2xl font-semibold text-[#24395d]">Qué queremos proyectar</h3>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-slate-600">
           Una marca organizada, premium y cercana, capaz de generar confianza en clientes, atraer talento
@@ -604,14 +711,14 @@ export default function App() {
     <PageShell
       eyebrow="Contacto"
       title="Canales corporativos claros para responder mejor y operar con más orden."
-      description="Elige el canal correcto según el tipo de solicitud. Cada correo cumple una función y evita mezclar todo en una sola bandeja."
+      description="Elige el canal correcto según el tipo de solicitud. Cada correo tiene una función y ayuda a que la atención sea más eficiente."
     >
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {corporateEmails.map((item) => (
           <a
             key={item.email}
             href={`mailto:${item.email}`}
-            className="rounded-[1.35rem] border border-[#d7dce5] bg-white p-6 text-sm text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-[#123d8c]"
+            className="rounded-[1.35rem] border border-[#d7deea] bg-white p-6 text-sm text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-[#123d8c]"
           >
             <p className="text-xs uppercase tracking-[0.24em] text-[#1263b8]">{item.title}</p>
             <p className="mt-3 font-medium text-[#24395d]">{item.email}</p>
@@ -627,7 +734,7 @@ export default function App() {
       title="Política de privacidad y tratamiento de datos"
       description="Este sitio recopila datos a través de formularios de demostraciones y reclutamiento. Aquí resumimos de forma clara cómo se usan esos datos."
     >
-      <div className="rounded-[1.6rem] border border-[#d7dce5] bg-white p-8 shadow-sm">
+      <div className="rounded-[1.6rem] border border-[#d7deea] bg-white p-8 shadow-sm">
         <div className="grid gap-6 text-sm leading-7 text-slate-600">
           <p>
             Los datos personales suministrados a través de este sitio serán utilizados por Living Paradise para
@@ -668,18 +775,18 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
       <header className="border-b border-[#dde3ee] bg-white">
-        <div className="mx-auto flex max-w-[1600px] flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between lg:px-10">
-          <button type="button" onClick={() => setActivePage("inicio")} className="flex items-center gap-6 text-left">
-            <img src={logo} alt="Living Paradise" className="h-[124px] w-auto object-contain md:h-[150px]" />
-            <div className="hidden h-20 w-px bg-[#c9d1df] md:block" />
+        <div className="mx-auto flex max-w-[1450px] flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between lg:px-10">
+          <button type="button" onClick={() => setActivePage("inicio")} className="flex items-center gap-5 text-left">
+            <img src={logo} alt="Living Paradise" className="h-[88px] w-auto object-contain md:h-[108px]" />
+            <div className="hidden h-16 w-px bg-[#c9d1df] md:block" />
             <div>
-              <p className="text-[1.9rem] font-medium tracking-[0.03em] text-slate-600 md:text-[2.3rem]">
+              <p className="text-[1.6rem] font-medium tracking-[0.03em] text-slate-600 md:text-[2rem]">
                 Healthy Modern Home
               </p>
             </div>
           </button>
 
-          <nav className="flex flex-wrap gap-4 md:gap-8">
+          <nav className="flex flex-wrap gap-4 md:gap-7">
             {pages.map((page) => (
               <button
                 key={page.id}
@@ -700,9 +807,11 @@ export default function App() {
       <main>{renderPage()}</main>
 
       <footer className="bg-[#071b49] text-white">
-        <div className="mx-auto grid max-w-[1600px] gap-10 px-6 py-12 md:grid-cols-[1.05fr_0.9fr_0.9fr_0.7fr] lg:px-10">
+        <div className="mx-auto grid max-w-[1450px] gap-10 px-6 py-12 md:grid-cols-[1.05fr_0.9fr_0.9fr_0.7fr] lg:px-10">
           <div>
-            <img src={logo} alt="Living Paradise" className="h-20 w-auto object-contain brightness-[3.3]" />
+            <div className="inline-flex rounded-2xl bg-white px-5 py-4 shadow-sm">
+              <img src={logo} alt="Living Paradise" className="h-16 w-auto object-contain" />
+            </div>
             <p className="mt-5 max-w-sm text-sm leading-7 text-blue-100">
               Experiencias de cocina en casa pensadas para conectar bienestar, atención profesional y una marca
               que inspira confianza.
@@ -710,7 +819,7 @@ export default function App() {
           </div>
 
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-blue-200">Enlaces rápidos</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#f0d2a1]">Enlaces rápidos</p>
             <div className="mt-4 grid gap-3 text-sm text-blue-50">
               <button type="button" onClick={() => setActivePage("demostraciones")} className="text-left hover:text-white">
                 Demostraciones
@@ -728,7 +837,7 @@ export default function App() {
           </div>
 
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-blue-200">Contacto</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#f0d2a1]">Contacto</p>
             <div className="mt-4 grid gap-3 text-sm text-blue-50">
               <a href="mailto:info@livingparadise.com.co" className="flex items-center gap-2 hover:text-white">
                 <MailIcon />
@@ -746,7 +855,7 @@ export default function App() {
           </div>
 
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-blue-200">Legal</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#f0d2a1]">Legal</p>
             <div className="mt-4 grid gap-3 text-sm text-blue-50">
               <button type="button" onClick={() => setActivePage("privacidad")} className="text-left hover:text-white">
                 Política de privacidad
@@ -756,7 +865,7 @@ export default function App() {
         </div>
 
         <div className="border-t border-white/10">
-          <div className="mx-auto max-w-[1600px] px-6 py-5 text-sm text-blue-100 lg:px-10">
+          <div className="mx-auto max-w-[1450px] px-6 py-5 text-sm text-blue-100 lg:px-10">
             © 2026 Living Paradise. Todos los derechos reservados.
           </div>
         </div>
