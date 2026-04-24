@@ -1,10 +1,10 @@
-# Living Paradise Web - Mockup Match
+# Living Paradise Web Refined
 
-Versión ajustada para acercarse de forma mucho más fiel al mockup aprobado:
-- header tipo editorial
-- hero con composición y tipografía estilo mockup
-- cards y pasos más alineados con el diseño aprobado
-- CTA azul inferior
-- footer oscuro más cercano al mockup
+Ajustes realizados:
+- logo más grande y protagonista en el header
+- hero enfocado únicamente en demostraciones y talleres de cocina
+- cards superiores alineadas al enfoque de demostraciones
+- mejora del bloque descriptivo de la marca
+- reclutamiento se conserva aparte en la franja inferior como solicitaste
 
-Sube esta versión al mismo repo para que Vercel redepliegue.
+Sube esta versión al repo para redeploy en Vercel.

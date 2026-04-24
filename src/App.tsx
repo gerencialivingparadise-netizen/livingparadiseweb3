@@ -289,21 +289,20 @@ export default function App() {
           <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div className="pt-4">
               <p className="text-sm font-semibold uppercase tracking-[0.32em] text-[#1263b8]">
-                Healthy modern home · demostraciones · crecimiento
+                Healthy modern home · demostraciones · talleres de cocina
               </p>
 
               <h1 className="heading-serif mt-4 max-w-[760px] text-5xl leading-[0.98] text-[#18305c] md:text-[4.4rem]">
-                Demostraciones de cocina en casa y oportunidades de crecimiento con una marca que inspira confianza.
+                Talleres y demostraciones de cocina en casa con una experiencia clara, elegante y personalizada.
               </h1>
 
-              <p className="mt-4 max-w-[650px] text-[1.18rem] leading-8 text-slate-600">
-                Living Paradise integra experiencias de cocina en casa, desarrollo comercial y presencia
-                institucional en una plataforma clara, elegante y orientada a resultados.
+              <p className="mt-4 max-w-[690px] text-[1.18rem] leading-8 text-slate-600">
+                En Living Paradise llevamos a tu hogar una experiencia práctica para que conozcas una propuesta de cocina moderna, funcional y pensada para el bienestar. Todo se vive de forma guiada, cercana y profesional.
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <PrimaryButton onClick={() => setActivePage("demostraciones")}>Agenda tu demostración</PrimaryButton>
-                <SecondaryButton onClick={() => setActivePage("equipo")}>Únete al equipo</SecondaryButton>
+                <SecondaryButton onClick={() => setActivePage("contacto")}>Solicita información</SecondaryButton>
               </div>
             </div>
 
@@ -534,15 +533,15 @@ export default function App() {
   const companyPillars = [
     {
       title: "Experiencia",
-      text: "Cada interacción debe transmitir cercanía, orden y una sensación premium coherente con la marca.",
+      text: "Cada demostración está pensada para que el cliente viva algo claro, cómodo y bien presentado dentro de su propio hogar.",
     },
     {
       title: "Bienestar",
-      text: "Promovemos una visión del hogar conectada con cocina práctica, hábitos saludables y estilo de vida moderno.",
+      text: "La propuesta conecta cocina práctica, hábitos más conscientes y una visión moderna del hogar.",
     },
     {
-      title: "Crecimiento",
-      text: "Construimos una plataforma comercial e institucional con visión de largo plazo y foco en ejecución.",
+      title: "Confianza",
+      text: "La marca busca comunicar orden, profesionalismo y una atención que se siente seria desde el primer contacto.",
     },
   ];
 
@@ -641,11 +640,10 @@ export default function App() {
       <header className="border-b border-[#dde3ee] bg-white">
         <div className="mx-auto flex max-w-[1600px] flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between lg:px-10">
           <button type="button" onClick={() => setActivePage("inicio")} className="flex items-center gap-6 text-left">
-            <img src={logo} alt="Living Paradise" className="h-[86px] w-auto object-contain md:h-[104px]" />
-            <div className="hidden h-16 w-px bg-[#c9d1df] md:block" />
+            <img src={logo} alt="Living Paradise" className="h-[118px] w-auto object-contain md:h-[142px]" />
+            <div className="hidden h-20 w-px bg-[#c9d1df] md:block" />
             <div>
-              <p className="text-[3rem] font-semibold leading-none text-[#16325f] md:text-[3.35rem]">Living Paradise</p>
-              <p className="mt-2 text-[1.45rem] text-slate-500">Healthy Modern Home</p>
+              <p className="text-[1.95rem] font-medium tracking-[0.03em] text-slate-600 md:text-[2.2rem]">Healthy Modern Home</p>
             </div>
           </button>
 
@@ -674,7 +672,7 @@ export default function App() {
           <div>
             <img src={logo} alt="Living Paradise" className="h-20 w-auto object-contain brightness-[3.3]" />
             <p className="mt-5 max-w-sm text-sm leading-7 text-blue-100">
-              Experiencias que transforman hogares y personas a través de la cocina, el bienestar y el crecimiento.
+              Experiencias de cocina en casa pensadas para conectar bienestar, atención profesional y una marca que inspira confianza.
             </p>
           </div>
 
